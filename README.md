@@ -1,4 +1,4 @@
-# emotra-frontend-nextjs
+# feelog-frontend-nextjs
 - メンタルヘルスのための感情トラッキングアプリケーション
 - 日記のように感情を記録し、振り返ることができる
 - Next.jsによるフロントエンドWebアプリケーション
@@ -10,8 +10,8 @@
 
 ## 初期構築
 - (公式のGetting Started)[https://nextjsjp.org/docs/app/getting-started/installation]の通りに進める
-- `mkdir emotora-frontend-nextjs`
-- `cd emotora-frontend-nextjs`
+- `mkdir feelog-frontend-nextjs`
+- `cd feelog-frontend-nextjs`
 - `npx create-next-app@latest`
 
 ## openapi.ymlから型定義を生成

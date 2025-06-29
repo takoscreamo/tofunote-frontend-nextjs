@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Emotra - 感情トラッキングアプリ",
+  title: "Feelog - 感情トラッキングアプリ",
   description: "あなたの感情を記録し、メンタルヘルスを管理するためのアプリケーション",
 };
 
@@ -40,7 +40,7 @@ export default function RootLayout({
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <Link href="/" className="text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors">
-                    Emotra
+                    Feelog
                   </Link>
                 </div>
                 <div className="flex items-center space-x-8">
