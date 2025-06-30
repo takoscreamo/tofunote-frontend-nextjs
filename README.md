@@ -45,8 +45,8 @@
 - **Axios 1.10.0** - HTTP クライアント
 
 ### 開発ツール
-- **ESLint 9** - コード品質管理
 - **openapi-typescript 7.8.0** - OpenAPI型定義生成
+- **ESLint 9** - コード品質管理・静的解析
 
 ## 📁 プロジェクト構造
 
@@ -166,67 +166,13 @@ npm run generate-types # OpenAPI型定義生成
 - **データフェッチ**: SWR を使用
 - **エラーハンドリング**: try-catch + エラー境界
 
-## 🔧 API 仕様
-
-### 主要エンドポイント
-
-- `GET /me/diaries` - 日記一覧取得
-- `POST /me/diaries` - 日記作成
-- `GET /me/diaries/range` - 期間指定日記取得
-- `GET /me/diaries/{date}` - 特定日付の日記取得
-- `PUT /me/diaries/{date}` - 日記更新
-- `DELETE /me/diaries/{date}` - 日記削除
-
-### データモデル
-
-```typescript
-interface Diary {
-  id: number;
-  user_id: number;
-  date: string;        // YYYY-MM-DD形式
-  mental: number;      // 1-10の整数
-  diary: string;       // 日記内容
-}
-```
-
-## 🎨 UI/UX デザイン
-
-### デザインシステム
-- **カラーパレット**: グレースケールベース
-- **タイポグラフィ**: Geist フォントファミリー
-- **レイアウト**: レスポンシブグリッドシステム
-- **インタラクション**: スムーズなトランジション
-
-### アクセシビリティ
-- セマンティックHTML
-- キーボードナビゲーション対応
-- スクリーンリーダー対応
-- 十分なコントラスト比
-
-## 🚀 デプロイ
-
-### 本番環境
-- **プラットフォーム**: Vercel（推奨）
-- **環境変数**: 本番用APIエンドポイントを設定
-- **ビルド**: `npm run build` で最適化されたビルドを生成
-
-### 環境別設定
-```env
-# 開発環境
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8080/api
-
-```
-
 ---
 
 ## 初期構築
-- (公式のGetting Started)[https://nextjsjp.org/docs/app/getting-started/installation]の通りに進める
+- [公式のGetting Started](https://nextjsjp.org/docs/app/getting-started/installation)の通りに進める
 - `mkdir feelog-frontend-nextjs`
 - `cd feelog-frontend-nextjs`
 - `npx create-next-app@latest`
 
 
 ---
-
-**Feelog** - あなたの感情を記録し、メンタルヘルスを管理するためのアプリケーション
-
