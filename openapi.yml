@@ -1,14 +1,17 @@
 openapi: 3.0.0
 info:
-  title: 日記API
+  title: FeelogAPI
   description: ユーザーの日記を管理するためのRESTful API
   version: 1.0.0
 
 servers:
-  - url: https://api.feelog.takoscreamo.com/api
-    description: 本番環境
   - url: http://localhost:8080/api
     description: ローカル開発環境
+  - url: https://api.feelog.takoscreamo.com/api
+    description: 本番環境
+
+security:
+  - BearerAuth: []
 
 paths:
   /me/diaries:
@@ -242,7 +245,77 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  /guest-login:
+    post:
+      summary: ゲストログイン
+      description: サーバー側でUUIDとリフレッシュトークンを生成し、ゲストユーザーとしてJWTトークンを発行する
+      responses:
+        '200':
+          description: ゲストトークン発行成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  id:
+                    type: string
+                    format: uuid
+        '500':
+          description: サーバーエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /refresh-token:
+    post:
+      summary: JWTリフレッシュ
+      description: リフレッシュトークンを使って新しいJWTを発行する
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token:
+                  type: string
+                  description: リフレッシュトークン
+              required:
+                - refresh_token
+      responses:
+        '200':
+          description: 新しいJWT発行成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: リフレッシュトークン無効
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: サーバーエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     Diary:
       type: object
