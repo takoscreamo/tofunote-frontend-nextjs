@@ -18,12 +18,6 @@
   - レスポンシブデザイン対応
   - データ読み込み状態の表示
 
-- **UI/UX**
-  - モダンで直感的なインターフェース
-  - レスポンシブデザイン（デスクトップ・モバイル対応）
-  - ダークモード対応の準備
-  - アクセシビリティに配慮したデザイン
-
 ### 開発予定機能
 - 設定画面
 - ユーザープロフィール管理
@@ -120,7 +114,7 @@ feelog-frontend-nextjs/
 
 4. **型定義の生成**
    ```bash
-   npm run generate-types
+   npx openapi-typescript openapi.yml -o src/types/openapi.d.ts
    ```
 
 5. **開発サーバーの起動**
@@ -155,7 +149,7 @@ npm run generate-types # OpenAPI型定義生成
    - SWR を使用してキャッシュとエラーハンドリングを実装
 
 3. **型安全性**
-   - OpenAPI 仕様書を更新後、`npm run generate-types` で型定義を再生成
+   - OpenAPI 仕様書を更新後、`npx openapi-typescript openapi.yml -o src/types/openapi.d.ts` で型定義を再生成
    - TypeScript の型チェックを活用
 
 ### コーディング規約
