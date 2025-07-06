@@ -103,13 +103,8 @@ feelog-frontend-nextjs/
 
 3. **環境変数の設定**
    ```bash
-   # .env.local ファイルを作成
-   touch .env.local
-   ```
-   
-   `.env.local` に以下を追加：
-   ```env
-   NEXT_PUBLIC_API_BASE_URL=http://localhost:8080/api
+   # .env.example ファイルをコピー
+   cp .env.example .env.local
    ```
 
 4. **型定義の生成**
@@ -122,7 +117,7 @@ feelog-frontend-nextjs/
    npm run dev
    ```
 
-   ブラウザで [http://localhost:3000](http://localhost:3000) を開いてアプリケーションを確認できます。
+   ブラウザで [http://localhost:3000](http://localhost:3000) を開いてアプリケーションを確認。
 
 ## 📝 開発ガイド
 
