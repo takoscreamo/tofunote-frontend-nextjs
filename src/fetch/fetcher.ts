@@ -1,19 +1,21 @@
-import axios, { AxiosError } from "axios";
+import { authAxios } from "./authAxios";
+import type { AxiosError } from "axios";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_URL + "/api";
-
+// GETリクエスト用fetcher（SWR等で利用）
 export const fetcherGet = async <T>(url: string): Promise<T> =>
-    axios.get<T>(url)
+    authAxios.get<T>(url)
         .then((res: { data: T }) => res.data)
         .catch((err: AxiosError) => {
+            // ネットワークエラー時の特別処理
             if (err?.message?.startsWith("Network Error")) {
                 throw { message: "Network Error" };
             }
             throw err.response;
         });
 
+// POSTリクエスト用fetcher
 export const fetcherPost = <T>(url: string, body: object = {}) =>
-    axios.post<T>(url, body)
+    authAxios.post<T>(url, body)
         .then((res: { data: T }) => {
             return {data: res.data, err: undefined}
         })
@@ -21,8 +23,9 @@ export const fetcherPost = <T>(url: string, body: object = {}) =>
             return {data: null, err: err.response}
         })
 
+// PUTリクエスト用fetcher
 export const fetcherPut = <T>(url: string, body: object = {}) =>
-    axios.put<T>(url, body)
+    authAxios.put<T>(url, body)
         .then((res: import("axios").AxiosResponse<T>) => {
             return {data: res, err: undefined}
         })
@@ -30,8 +33,9 @@ export const fetcherPut = <T>(url: string, body: object = {}) =>
             return {data: undefined, err: err.response}
         })
 
+// DELETEリクエスト用fetcher
 export const fetcherDelete = <T>(url: string) =>
-    axios.delete<T>(url)
+    authAxios.delete<T>(url)
         .then((res: import("axios").AxiosResponse<T>) => {
             return { data: res.data, err: undefined };
         })

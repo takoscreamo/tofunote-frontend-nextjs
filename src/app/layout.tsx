@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
+import AuthGuard from "@/components/common/AuthGuard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,7 +76,8 @@ export default function RootLayout({
 
           <main className="flex-1 pb-16 md:pb-0">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-              {children}
+              {/* 認証ガードでchildrenをラップ */}
+              <AuthGuard>{children}</AuthGuard>
             </div>
           </main>
 
