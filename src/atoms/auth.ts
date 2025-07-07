@@ -1,4 +1,7 @@
 import { atom } from 'jotai';
+import axios from 'axios';
+import { EP } from '@/utils/endpoints';
+import type { paths } from '@/types/openapi';
 
 // JWTトークンをグローバルに管理するAtom
 export const tokenAtom = atom<string | null>(null);
@@ -33,8 +36,26 @@ export const loginAtom = atom(null, (get, set, { token, refreshToken }: { token:
   setRefreshToken(refreshToken);
 });
 
-// ログアウト時にtokenとrefresh_tokenを削除するAtom
-export const logoutAtom = atom(null, (get, set) => {
-  set(tokenAtom, null);
-  removeRefreshToken();
-});
+export const loginWithRefreshTokenIfExists = async (
+  setLogin: (value: { token: string; refreshToken: string }) => void
+): Promise<boolean> => {
+  const refreshToken = getRefreshToken();
+  if (!refreshToken) return false;
+  try {
+    const res = await axios.post<
+      paths["/refresh-token"]["post"]["responses"][200]["content"]["application/json"]
+    >(
+      EP.refresh_token(),
+      { refresh_token: refreshToken },
+      { baseURL: process.env.NEXT_PUBLIC_BACKEND_URL + "/api", withCredentials: true }
+    );
+    const { token } = res.data;
+    if (token) {
+      setLogin({ token, refreshToken });
+      return true;
+    }
+  } catch {
+    removeRefreshToken();
+  }
+  return false;
+};

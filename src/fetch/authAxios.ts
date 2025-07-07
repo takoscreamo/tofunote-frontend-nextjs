@@ -6,7 +6,7 @@
  */
 import axios from 'axios';
 import { getRefreshToken, setRefreshToken } from '../atoms/auth';
-import { tokenAtom, logoutAtom } from '../atoms/auth';
+import { tokenAtom } from '../atoms/auth';
 import { getDefaultStore } from 'jotai';
 import { EP } from '@/utils/endpoints';
 import type { paths } from '@/types/openapi';
@@ -68,8 +68,8 @@ api.interceptors.response.use(
             setRefreshToken(refreshToken ?? '');
             return token;
           } catch {
-            // リフレッシュ失敗時はログアウト
-            store.set(logoutAtom);
+            // リフレッシュ失敗時はtokenのみクリア（refresh_tokenは消さない）
+            store.set(tokenAtom, null);
             return null;
           } finally {
             isRefreshing = false;

@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import AuthGuard from "@/components/common/AuthGuard";
-import LogoutButton from "../components/common/LogoutButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,8 +50,6 @@ export default function RootLayout({
                     <Link href="/graph" className="text-gray-600 hover:text-gray-900">グラフ</Link>
                     <Link href="/settings" className="text-gray-600 hover:text-gray-900">設定</Link>
                   </nav>
-                  {/* ログアウトボタン */}
-                  <LogoutButton />
                   <Link
                     href="/profile"
                     className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
