@@ -16,4 +16,10 @@ export const EP = {
 
   // 期間指定日記取得
   range_diaries: (start_date: string, end_date: string) => `/me/diaries/range?start_date=${start_date}&end_date=${end_date}`,
+
+  // ゲストログイン
+  guest_login: () => "guest-login",
+
+  // トークンリフレッシュ
+  refresh_token: () => "refresh-token",
 };
