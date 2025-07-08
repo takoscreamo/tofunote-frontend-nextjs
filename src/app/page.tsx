@@ -9,16 +9,12 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // ログインしていなければログインページにリダイレクト
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
+      router.replace("/diary");
+    } else {
       router.replace("/login");
     }
   }, [isLoggedIn, router]);
 
-  if (!isLoggedIn) return null;
-
-  // ログインしていれば日記ページにリダイレクト
-  return (
-    router.replace("/diary")
-  );
+  return null;
 } 
