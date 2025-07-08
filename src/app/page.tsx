@@ -9,6 +9,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
+    // ログインしていなければログインページにリダイレクト
     if (!isLoggedIn) {
       router.replace("/login");
     }
@@ -16,12 +17,8 @@ export default function Home() {
 
   if (!isLoggedIn) return null;
 
-  // 本来のトップページ内容
+  // ログインしていれば日記ページにリダイレクト
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">ようこそ！</h1>
-      <p>ここがあなたのダッシュボードです。</p>
-      {/* 必要に応じて他のコンポーネントや情報を追加 */}
-    </main>
+    router.replace("/diary")
   );
 } 
