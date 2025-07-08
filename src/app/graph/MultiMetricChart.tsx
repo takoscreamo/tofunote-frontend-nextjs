@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useCallback } from "react";
 import type { components } from "@/types/openapi";
 
 // Diary型
@@ -34,35 +34,8 @@ const CHART_CONFIG = {
 export const MultiMetricChart: FC<Props> = ({ diaries }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || diaries.length === 0) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // デバイスピクセル比を取得してキャンバスを設定
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
-
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    canvas.style.width = rect.width + "px";
-    canvas.style.height = rect.height + "px";
-    ctx.scale(dpr, dpr);
-
-    // データを日付昇順でソート
-    const sortedData = [...diaries].sort((a, b) => a.date.localeCompare(b.date));
-
-    // ダミーデータ生成（実際のAPIでは削除）
-    const sleepScores = sortedData.map(() => Math.floor(Math.random() * 5) + 5);
-    const devTimeScores = sortedData.map(() => Math.floor(Math.random() * 4) + 1);
-
-    // グラフの描画
-    drawChart(ctx, rect, sortedData, sleepScores, devTimeScores);
-  }, [diaries]);
-
-  const drawChart = (
+  // drawChartはuseEffectの依存配列に含める必要があるため、useCallbackでメモ化する
+  const drawChart = useCallback((
     ctx: CanvasRenderingContext2D,
     rect: DOMRect,
     data: Diary[],
@@ -71,23 +44,33 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
   ) => {
     const { width, height } = rect;
     const { padding } = CHART_CONFIG;
-
     const chartWidth = width - padding.left - padding.right;
     const chartHeight = height - padding.top - padding.bottom;
-
-    // キャンバスをクリア
     ctx.clearRect(0, 0, width, height);
-
-    // グリッドとラベルを描画
     drawGrid(ctx, width, height, chartWidth, chartHeight, padding);
     drawLabels(ctx, width, height, chartWidth, chartHeight, padding, data);
-
-    // 棒グラフを描画
     drawBarCharts(ctx, chartWidth, chartHeight, padding, data, sleepScores, devTimeScores);
-
-    // 折れ線グラフを描画
     drawLineChart(ctx, chartWidth, chartHeight, padding, data);
-  };
+  }, []); // 依存配列は必要に応じて調整
+
+  useEffect(() => {
+    // グラフ描画処理。drawChartを依存配列に含めることでESLint警告を回避
+    const canvas = canvasRef.current;
+    if (!canvas || diaries.length === 0) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + "px";
+    canvas.style.height = rect.height + "px";
+    ctx.scale(dpr, dpr);
+    const sortedData = [...diaries].sort((a, b) => a.date.localeCompare(b.date));
+    const sleepScores = sortedData.map(() => Math.floor(Math.random() * 5) + 5);
+    const devTimeScores = sortedData.map(() => Math.floor(Math.random() * 4) + 1);
+    drawChart(ctx, rect, sortedData, sleepScores, devTimeScores);
+  }, [diaries, drawChart]); // drawChartを依存配列に追加し、ESLint警告を防ぐ
 
   const drawGrid = (
     ctx: CanvasRenderingContext2D,
