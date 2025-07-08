@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { authAxios } from '@/fetch/authAxios';
 import type { paths } from "@/types/openapi";
 import { EP } from "@/utils/endpoints";
+import { TermsModal } from '@/components/common/TermsModal';
 
 export default function LoginPage() {
   const setLogin = useSetAtom(loginAtom);
@@ -17,6 +18,7 @@ export default function LoginPage() {
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [hasRefreshToken, setHasRefreshToken] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
 
   useEffect(() => {
     // すでにログイン済みなら即トップページへリダイレクト
@@ -79,7 +81,14 @@ export default function LoginPage() {
             className="mt-1 mr-2 accent-blue-500"
           />
           <label htmlFor="agree" className="text-xs text-gray-600 select-none">
-            <a href="/terms" target="_blank" className="underline text-blue-600 hover:text-blue-800">利用規約</a>に同意します
+            <button
+              type="button"
+              className="underline text-blue-600 hover:text-blue-800 focus:outline-none"
+              onClick={() => setTermsOpen(true)}
+            >
+              利用規約
+            </button>
+            に同意します
           </label>
         </div>
         {/* 自動ログイン判定中は何も表示しない。refresh_tokenがなければボタン表示 */}
@@ -94,6 +103,7 @@ export default function LoginPage() {
         )}
         {error && <p className="text-red-500 mt-4 text-sm text-center w-full">{error}</p>}
       </div>
+      <TermsModal open={termsOpen} onClose={() => setTermsOpen(false)} />
     </div>
   );
 } 
