@@ -3,6 +3,7 @@ import Link from "next/link";
 import AuthGuard from "@/components/common/AuthGuard";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
+import { NicknameDisplay } from "@/components/common/NicknameDisplay";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export default function AppLayout({ children }: { children: ReactNode }) {
+  // ニックネーム表示
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-50`}>
       <div className="flex min-h-screen flex-col">
@@ -31,6 +33,8 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                   <Link href="/graph" className="text-gray-600 hover:text-gray-900">グラフ</Link>
                   <Link href="/settings" className="text-gray-600 hover:text-gray-900">設定</Link>
                 </nav>
+                {/* ニックネーム表示 */}
+                <NicknameDisplay />
                 <Link
                   href="/profile"
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
