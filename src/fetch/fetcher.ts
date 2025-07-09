@@ -42,3 +42,13 @@ export const fetcherDelete = <T>(url: string) =>
         .catch((err: AxiosError) => {
             return { data: undefined, err: err.response };
         });
+
+// PATCHリクエスト用fetcher
+export const fetcherPatch = <T>(url: string, body: object = {}) =>
+  authAxios.patch<T>(url, body)
+    .then((res: import("axios").AxiosResponse<T>) => {
+      return { data: res, err: undefined };
+    })
+    .catch((err: AxiosError) => {
+      return { data: undefined, err: err.response };
+    });

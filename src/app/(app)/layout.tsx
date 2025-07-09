@@ -36,7 +36,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 {/* ニックネーム表示 */}
                 <NicknameDisplay />
                 <Link
-                  href="/profile"
+                  href="/settings"
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
                 >
                   <svg
