@@ -1,6 +1,5 @@
 import React from "react";
-
-type Period = "1week" | "2weeks" | "1month" | "3months" | "6months" | "1year" | "custom";
+import type { Period } from "@/types/period";
 
 // 期間オプションの定義
 export const PERIOD_OPTIONS = [

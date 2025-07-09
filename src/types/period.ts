@@ -1,0 +1,1 @@
+export type Period = "1week" | "2weeks" | "1month" | "3months" | "6months" | "1year" | "custom"; 

@@ -1,5 +1,5 @@
 import { format, subDays, subMonths, subYears } from "date-fns";
-import type { Period } from "@/app/graph/PeriodSelector";
+import type { Period } from "@/types/period";
 
 export const getDateRange = (period: Period, customStartDate?: string, customEndDate?: string) => {
   if (period === "custom") {
