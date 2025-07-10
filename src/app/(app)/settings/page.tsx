@@ -7,6 +7,7 @@ import NicknameForm from "@/components/common/NicknameForm";
 import { removeRefreshToken } from "@/atoms/auth";
 import { useSetAtom } from "jotai";
 import { tokenAtom } from "@/atoms/auth";
+import { TermsModal } from "@/components/common/TermsModal";
 
 const SettingsPage = () => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const SettingsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const setToken = useSetAtom(tokenAtom);
+  const [termsOpen, setTermsOpen] = useState(false);
 
   useEffect(() => {
     fetcherGet<{ id: string; nickname: string }>("/me")
@@ -54,6 +56,29 @@ const SettingsPage = () => {
             onUpdated={nickname => setUser(u => u ? { ...u, nickname } : u)}
           />
         )}
+      </section>
+      <hr className="my-6" />
+      <section className="mb-2">
+        <h2 className="text-base font-semibold text-gray-800 mb-1">AI分析機能</h2>
+        <div className="flex items-center gap-4 mb-1">
+          <label className="flex items-center gap-1 text-sm text-gray-700">
+            <input type="radio" name="ai-analysis" value="on" disabled />
+            オン
+          </label>
+          <label className="flex items-center gap-1 text-sm text-gray-700">
+            <input type="radio" name="ai-analysis" value="off" checked disabled />
+            オフ
+          </label>
+        </div>
+        <p className="text-xs text-gray-500">AI分析機能は近日リリース予定です。現在はご利用いただけません。</p>
+        <p className="text-xs text-gray-500 mt-1">
+          ※ オンにした場合、日記データ等がOpenAI等の外部APIに送信されます（
+          <button type="button" className="underline text-blue-600 hover:text-blue-800" onClick={() => setTermsOpen(true)}>
+            利用規約
+          </button>
+          に準拠）。
+        </p>
+        {termsOpen && <TermsModal open={termsOpen} onClose={() => setTermsOpen(false)} />}
       </section>
       <hr className="my-6" />
       <section className="mb-2">
