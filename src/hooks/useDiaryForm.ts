@@ -148,7 +148,7 @@ export const useDiaryForm = ({ initialDate }: UseDiaryFormProps) => {
   // 日記削除処理
   const handleDeleteDiary = async () => {
     if (!diaryData?.data) return;
-    if (!window.confirm("本当にこの日記を削除しますか？")) return;
+    if (!window.confirm("この記録を削除しますか？")) return;
     const toastId = toast.loading("削除中...", { position: "top-right" });
     try {
       const result = await fetcherDelete<{ message: string }>(EP.delete_diary(formatDate(formData.date)));

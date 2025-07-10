@@ -14,25 +14,25 @@ const getTofuInfo = (score: number) => {
     return {
       name: "絹豆腐メンタル",
       image: "/tofu-kinu.png",
-      description: "やわらかく繊細なメンタル状態"
+      description: "もう試合終了したい"
     };
   } else if (score >= 4 && score <= 6) {
     return {
       name: "木綿豆腐メンタル",
       image: "/tofu-momen.png",
-      description: "適度な弾力のあるメンタル状態"
+      description: "普通に厳しい"
     };
   } else if (score >= 7 && score <= 9) {
     return {
       name: "厚揚げメンタル",
       image: "/tofu-atuage.png",
-      description: "しっかりとした強いメンタル状態"
+      description: "わりかし元気かも"
     };
   } else {
     return {
       name: "鋼のメンタル",
       image: "/tofu-hagane.png",
-      description: "最強の鋼のようなメンタル状態"
+      description: "人生サイコー！！！"
     };
   }
 };
