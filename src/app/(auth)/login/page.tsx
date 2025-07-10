@@ -83,7 +83,7 @@ export default function LoginPage() {
         </div>
         <h1 className="text-3xl font-extrabold mb-2 tracking-tight">TOFU NOTE</h1>
         <p className="text-base text-gray-700 mb-1 text-center">豆腐メンタルを俯瞰するアプリ</p>
-        <p className="text-xs text-gray-500 mb-6 text-center">メールアドレス不要・匿名で使えます</p>
+        <p className="text-xs text-gray-500 mb-6 text-center">メールアドレス不要・匿名で使えます。</p>
         <div className="flex items-start mb-6 w-full">
           <input
             id="agree"
@@ -116,6 +116,24 @@ export default function LoginPage() {
         {error && <p className="text-red-500 mt-4 text-sm text-center w-full">{error}</p>}
       </div>
       <TermsModal open={termsOpen} onClose={() => setTermsOpen(false)} />
+      {/* サンプル画面画像エリア */}
+      <div className="w-full max-w-2xl flex flex-col items-center mt-8">
+        <div className="text-sm text-gray-500 mb-2">サンプル画面（イメージ）</div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+          <div className="flex flex-col items-center min-w-[90px]">
+            <Image src="/sample_diary.png" alt="記録画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300" />
+            <span className="text-xs text-gray-600">記録画面</span>
+          </div>
+          <div className="flex flex-col items-center min-w-[90px]">
+            <Image src="/sample_graph.png" alt="グラフ画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300" />
+            <span className="text-xs text-gray-600">グラフ画面</span>
+          </div>
+          <div className="flex flex-col items-center min-w-[90px]">
+            <Image src="/sample_settings.png" alt="設定画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300" />
+            <span className="text-xs text-gray-600">設定画面</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 } 
