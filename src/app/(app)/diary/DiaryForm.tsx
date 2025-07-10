@@ -46,15 +46,6 @@ export const DiaryForm: React.FC<DiaryFormProps> = ({
         onChange={onMentalScoreChange}
       />
       
-      <TextArea
-        value={formData.content}
-        onChange={onContentChange}
-        label="メモ"
-        placeholder="今日の出来事や気持ちを書いてみましょう！"
-        id="content"
-        rows={3}
-      />
-      
       {/* ボタンを横並びに配置 */}
       <div className="flex gap-2">
         <Button
@@ -79,6 +70,15 @@ export const DiaryForm: React.FC<DiaryFormProps> = ({
           </Button>
         )}
       </div>
+      
+      <TextArea
+        value={formData.content}
+        onChange={onContentChange}
+        label="メモ"
+        placeholder="今日の出来事や気持ちを書いてみましょう！(任意入力)"
+        id="content"
+        rows={3}
+      />
     </form>
   );
 }; 
