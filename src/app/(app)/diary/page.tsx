@@ -16,6 +16,7 @@ export default function DiaryEdit() {
     handleMentalScoreChange,
     handleContentChange,
     handleSubmit,
+    handleDeleteDiary,
   } = useDiaryForm({});
 
   return (
@@ -32,6 +33,7 @@ export default function DiaryEdit() {
         onMentalScoreChange={handleMentalScoreChange}
         onContentChange={handleContentChange}
         onSubmit={handleSubmit}
+        onDeleteDiary={handleDeleteDiary}
       />
       
       <ErrorMessage error={error} getErrorMessage={getErrorMessage} />

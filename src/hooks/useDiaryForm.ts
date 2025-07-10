@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSwr } from "@/hooks/useSwr";
-import { fetcherPost, fetcherPut } from "@/fetch/fetcher";
+import { fetcherPost, fetcherPut, fetcherDelete } from "@/fetch/fetcher";
 import { getTodayDateInTokyo } from "@/utils/date";
 import type { components } from "@/types/openapi";
 import { EP } from "@/utils/endpoints";
@@ -138,6 +138,39 @@ export const useDiaryForm = ({ initialDate }: UseDiaryFormProps) => {
     }
   };
 
+  // 日記削除処理
+  const handleDeleteDiary = async () => {
+    if (!diaryData?.data) return;
+    if (!window.confirm("本当にこの日記を削除しますか？")) return;
+    const toastId = toast.loading("削除中...", { position: "top-right" });
+    try {
+      const result = await fetcherDelete<{ message: string }>(EP.delete_diary(formatDate(formData.date)));
+      if (!result.err) {
+        // キャッシュクリアとフォーム初期化
+        await mutate(undefined, { revalidate: true });
+        setFormData(prev => ({ ...prev, mentalScore: 5, content: "" }));
+        toast.update(toastId, {
+          render: "削除完了",
+          type: "success",
+          isLoading: false,
+          autoClose: 1000,
+          position: "top-right",
+        });
+        router.push("/diary");
+      } else {
+        throw new Error("削除に失敗しました");
+      }
+    } catch {
+      toast.update(toastId, {
+        render: "エラーが発生しました",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+        position: "top-right",
+      });
+    }
+  };
+
   return {
     formData,
     diaryData,
@@ -148,5 +181,6 @@ export const useDiaryForm = ({ initialDate }: UseDiaryFormProps) => {
     handleMentalScoreChange,
     handleContentChange,
     handleSubmit,
+    handleDeleteDiary: diaryData?.data ? handleDeleteDiary : undefined,
   };
 }; 

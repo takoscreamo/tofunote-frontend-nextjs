@@ -17,6 +17,7 @@ interface DiaryFormProps {
   onContentChange: (content: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   isLoading?: boolean;
+  onDeleteDiary?: () => void; // 追加
 }
 
 export const DiaryForm: React.FC<DiaryFormProps> = ({
@@ -28,6 +29,7 @@ export const DiaryForm: React.FC<DiaryFormProps> = ({
   onContentChange,
   onSubmit,
   isLoading = false,
+  onDeleteDiary,
 }) => {
   return (
     <form onSubmit={onSubmit} className="space-y-6">
@@ -53,15 +55,30 @@ export const DiaryForm: React.FC<DiaryFormProps> = ({
         rows={3}
       />
       
-      <Button
-        type="submit"
-        variant="primary"
-        size="sm"
-        fullWidth
-        disabled={isLoading}
-      >
-        {isLoading ? "保存中..." : "保存"}
-      </Button>
+      {/* ボタンを横並びに配置 */}
+      <div className="flex gap-2">
+        <Button
+          type="submit"
+          variant="primary"
+          size="sm"
+          className="flex-1"
+          disabled={isLoading}
+        >
+          {isLoading ? "保存中..." : "保存"}
+        </Button>
+        {onDeleteDiary && (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="flex-1 border-red-400 text-red-600 hover:bg-red-50"
+            onClick={onDeleteDiary}
+            disabled={isLoading}
+          >
+            削除
+          </Button>
+        )}
+      </div>
     </form>
   );
 }; 
