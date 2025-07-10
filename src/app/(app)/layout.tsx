@@ -23,8 +23,8 @@ export default function AppLayout({ children }: { children: ReactNode }) {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <Link href="/" className="text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors">
-                  Feelog
+                <Link href="/" className="flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors">
+                  <img src="/logotext.png" alt="アプリロゴ" className="h-8 w-auto" />
                 </Link>
               </div>
               <div className="flex items-center space-x-8">

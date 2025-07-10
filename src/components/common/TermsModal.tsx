@@ -20,7 +20,7 @@ export const TermsModal: React.FC<TermsModalProps> = ({ open, onClose }) => {
         <h1 className="text-xl font-bold mb-4">利用規約</h1>
         <div className="text-xs text-gray-700 space-y-3 max-h-[60vh] overflow-y-auto pr-2">
           <p>
-            この利用規約（以下「本規約」といいます）は、Feelog（以下「本サービス」といいます）の利用条件を定めるものです。ユーザーの皆さまには、本規約に同意いただいた上で本サービスをご利用いただきます。
+            この利用規約（以下「本規約」といいます）は、TOFU NOTE（以下「本サービス」といいます）の利用条件を定めるものです。ユーザーの皆さまには、本規約に同意いただいた上で本サービスをご利用いただきます。
           </p>
 
           <h2 className="font-semibold mt-4">第1条（適用）</h2>

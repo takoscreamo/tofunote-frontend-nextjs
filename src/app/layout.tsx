@@ -18,8 +18,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Feelog - 感情トラッキングアプリ",
-  description: "あなたの感情を記録し、メンタルヘルスを管理するためのアプリケーション",
+  title: "TOFU NOTE - 豆腐メンタルを俯瞰するアプリ",
+  description: "あなたのメンタルスコアを記録し、豆腐メンタルを可視化・俯瞰するためのアプリケーション",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

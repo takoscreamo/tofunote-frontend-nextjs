@@ -1,6 +1,6 @@
-# Feelog Frontend - 感情トラッキングアプリケーション
+# TOFU NOTE Frontend - 豆腐メンタルを可視化するアプリケーション
 
-メンタルヘルスのための感情トラッキングアプリケーションです。日記のように感情を記録し、グラフで可視化することで、自分のメンタル状態を振り返ることができます。
+豆腐メンタルのための可視化アプリケーションです。日記のようにメンタルスコアを記録し、グラフで可視化することで、自分のメンタル状態を振り返ることができます。
 
 ## 🚀 機能
 
@@ -46,7 +46,7 @@
 ## 📁 プロジェクト構造
 
 ```
-feelog-frontend-nextjs/
+tofu-note-frontend-nextjs/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── diary/             # 日記機能
@@ -94,7 +94,7 @@ feelog-frontend-nextjs/
 1. **リポジトリのクローン**
    ```bash
    git clone <repository-url>
-   cd feelog-frontend-nextjs
+   cd tofu-note-frontend-nextjs
    ```
 
 2. **依存関係のインストール**
@@ -160,8 +160,8 @@ npm run generate-types # OpenAPI型定義生成
 
 ## 初期構築
 - [公式のGetting Started](https://nextjsjp.org/docs/app/getting-started/installation)の通りに進める
-- `mkdir feelog-frontend-nextjs`
-- `cd feelog-frontend-nextjs`
+- `mkdir tofu-note-frontend-nextjs`
+- `cd tofu-note-frontend-nextjs`
 - `npx create-next-app@latest`
 
 ## ゲストログイン・認証フロー仕様

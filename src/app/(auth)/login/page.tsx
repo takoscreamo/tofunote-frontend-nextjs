@@ -7,6 +7,7 @@ import { authAxios } from '@/fetch/authAxios';
 import type { paths } from "@/types/openapi";
 import { EP } from "@/utils/endpoints";
 import { TermsModal } from '@/components/common/TermsModal';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const setLogin = useSetAtom(loginAtom);
@@ -69,8 +70,17 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen px-4 pt-16">
       <div className="w-full max-w-xs bg-white rounded-xl shadow-md p-8 flex flex-col items-center">
-        <h1 className="text-3xl font-extrabold mb-2 tracking-tight">Feelog</h1>
-        <p className="text-base text-gray-700 mb-1 text-center">メンタルスコアを記録するアプリ</p>
+        <div className="mb-4">
+          <Image
+            src="/logoicon.png"
+            alt="TOFU NOTE"
+            width={120}
+            height={120}
+            className="object-contain"
+          />
+        </div>
+        <h1 className="text-3xl font-extrabold mb-2 tracking-tight">TOFU NOTE</h1>
+        <p className="text-base text-gray-700 mb-1 text-center">豆腐メンタルを俯瞰するアプリ</p>
         <p className="text-xs text-gray-500 mb-6 text-center">メールアドレス不要・匿名で使えます</p>
         <div className="flex items-start mb-6 w-full">
           <input
