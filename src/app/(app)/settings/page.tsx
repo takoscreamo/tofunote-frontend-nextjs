@@ -59,7 +59,13 @@ const SettingsPage = () => {
       </section>
       <hr className="my-6" />
       <section className="mb-2">
-        <h2 className="text-base font-semibold text-gray-800 mb-1">AI分析機能</h2>
+        <h2 className="text-base font-semibold text-gray-800 mb-1">退会</h2>
+        <p className="text-xs text-gray-500 mb-2">退会すると、これまで記録した日記やユーザー情報など、すべてのデータが完全に削除されます。<br />この操作は取り消すことができませんが、またいつでも新しく始めることができます。ご利用いただきありがとうございました。</p>
+        <Button onClick={handleDelete} variant="danger" className="w-full py-2 text-sm">退会</Button>
+      </section>
+      <hr className="my-6" />
+      <section className="mb-2 bg-gray-100 rounded p-4">
+        <h2 className="text-base font-semibold text-gray-800 mb-1">AI分析※</h2>
         <div className="flex items-center gap-4 mb-1">
           <label className="flex items-center gap-1 text-sm text-gray-700">
             <input type="radio" name="ai-analysis" value="on" disabled />
@@ -70,9 +76,9 @@ const SettingsPage = () => {
             オフ
           </label>
         </div>
-        <p className="text-xs text-gray-500">AI分析機能は近日リリース予定です。現在はご利用いただけません。</p>
+        <p className="text-xs text-gray-500">※AI分析機能は近日リリース予定です。現在はご利用いただけません。</p>
         <p className="text-xs text-gray-500 mt-1">
-          ※ オンにした場合、日記データ等がOpenAI等の外部APIに送信されます（
+          オンにした場合、日記データ等がOpenAI等の外部APIに送信されます（
           <button type="button" className="underline text-blue-600 hover:text-blue-800" onClick={() => setTermsOpen(true)}>
             利用規約
           </button>
@@ -81,10 +87,10 @@ const SettingsPage = () => {
         {termsOpen && <TermsModal open={termsOpen} onClose={() => setTermsOpen(false)} />}
       </section>
       <hr className="my-6" />
-      <section className="mb-2">
-        <h2 className="text-base font-semibold text-gray-800 mb-1">退会</h2>
-        <p className="text-xs text-gray-500 mb-2">退会すると、これまで記録した日記やユーザー情報など、すべてのデータが完全に削除されます。<br />この操作は取り消すことができませんが、またいつでも新しく始めることができます。ご利用いただきありがとうございました。</p>
-        <Button onClick={handleDelete} variant="danger" className="w-full py-2 text-sm">退会</Button>
+      <section className="mb-2 bg-gray-100 rounded p-4">
+        <h2 className="text-base font-semibold text-gray-800 mb-1">OAuth連携※</h2>
+        <p className="text-xs text-gray-500 mb-2">※OAuth連携機能は近日リリース予定です。現在はご利用いただけません。</p>
+        <button type="button" disabled className="w-full py-2 text-sm bg-gray-200 text-gray-500 rounded font-semibold cursor-not-allowed mb-1">Googleで連携（近日リリース）</button>
       </section>
     </div>
   );
