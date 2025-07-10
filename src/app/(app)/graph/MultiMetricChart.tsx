@@ -38,9 +38,9 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
   const drawChart = useCallback((
     ctx: CanvasRenderingContext2D,
     rect: DOMRect,
-    data: Diary[],
-    sleepScores: number[],
-    devTimeScores: number[]
+    data: Diary[]
+    // sleepScores: number[],
+    // devTimeScores: number[]
   ) => {
     const { width, height } = rect;
     const { padding } = CHART_CONFIG;
@@ -49,7 +49,7 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     ctx.clearRect(0, 0, width, height);
     drawGrid(ctx, width, height, chartWidth, chartHeight, padding);
     drawLabels(ctx, width, height, chartWidth, chartHeight, padding, data);
-    drawBarCharts(ctx, chartWidth, chartHeight, padding, data, sleepScores, devTimeScores);
+    // drawBarCharts(ctx, chartWidth, chartHeight, padding, data, sleepScores, devTimeScores); // 棒グラフは一旦非表示
     drawLineChart(ctx, chartWidth, chartHeight, padding, data);
   }, []); // 依存配列は必要に応じて調整
 
@@ -67,9 +67,9 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     canvas.style.height = rect.height + "px";
     ctx.scale(dpr, dpr);
     const sortedData = [...diaries].sort((a, b) => a.date.localeCompare(b.date));
-    const sleepScores = sortedData.map(() => Math.floor(Math.random() * 5) + 5);
-    const devTimeScores = sortedData.map(() => Math.floor(Math.random() * 4) + 1);
-    drawChart(ctx, rect, sortedData, sleepScores, devTimeScores);
+    // const sleepScores = sortedData.map(() => Math.floor(Math.random() * 5) + 5);
+    // const devTimeScores = sortedData.map(() => Math.floor(Math.random() * 4) + 1);
+    drawChart(ctx, rect, sortedData);
   }, [diaries, drawChart]); // drawChartを依存配列に追加し、ESLint警告を防ぐ
 
   const drawGrid = (
@@ -122,45 +122,46 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     });
   };
 
-  const drawBarCharts = (
-    ctx: CanvasRenderingContext2D,
-    chartWidth: number,
-    chartHeight: number,
-    padding: typeof CHART_CONFIG.padding,
-    data: Diary[],
-    sleepScores: number[],
-    devTimeScores: number[]
-  ) => {
-    const barWidth = (chartWidth / data.length) * CHART_CONFIG.barWidth;
-    const barSpacing = (chartWidth / data.length) * CHART_CONFIG.barSpacing;
+  // drawBarCharts関数自体も未使用なのでコメントアウト
+  // const drawBarCharts = (
+  //   ctx: CanvasRenderingContext2D,
+  //   chartWidth: number,
+  //   chartHeight: number,
+  //   padding: typeof CHART_CONFIG.padding,
+  //   data: Diary[],
+  //   sleepScores: number[],
+  //   devTimeScores: number[]
+  // ) => {
+  //   const barWidth = (chartWidth / data.length) * CHART_CONFIG.barWidth;
+  //   const barSpacing = (chartWidth / data.length) * CHART_CONFIG.barSpacing;
 
-    data.forEach((_, index) => {
-      const baseX = padding.left + (chartWidth * index) / (data.length - 1);
+  //   data.forEach((_, index) => {
+  //     const baseX = padding.left + (chartWidth * index) / (data.length - 1);
 
-      // 睡眠スコアの棒グラフ（左）
-      const sleepX = baseX - barWidth / 2 - barSpacing / 2;
-      const sleepScore = sleepScores[index];
-      const sleepBarHeight = (chartHeight * sleepScore) / 10;
-      const sleepY = padding.top + chartHeight - sleepBarHeight;
+  //     // 睡眠スコアの棒グラフ（左）
+  //     const sleepX = baseX - barWidth / 2 - barSpacing / 2;
+  //     const sleepScore = sleepScores[index];
+  //     const sleepBarHeight = (chartHeight * sleepScore) / 10;
+  //     const sleepY = padding.top + chartHeight - sleepBarHeight;
 
-      ctx.fillStyle = CHART_CONFIG.colors.sleep;
-      ctx.fillRect(sleepX, sleepY, barWidth, sleepBarHeight);
-      ctx.strokeStyle = CHART_CONFIG.colors.sleepBorder;
-      ctx.lineWidth = 1;
-      ctx.strokeRect(sleepX, sleepY, barWidth, sleepBarHeight);
+  //     ctx.fillStyle = CHART_CONFIG.colors.sleep;
+  //     ctx.fillRect(sleepX, sleepY, barWidth, sleepBarHeight);
+  //     ctx.strokeStyle = CHART_CONFIG.colors.sleepBorder;
+  //     ctx.lineWidth = 1;
+  //     ctx.strokeRect(sleepX, sleepY, barWidth, sleepBarHeight);
 
-      // 個人開発時間の棒グラフ（右）
-      const devX = baseX + barWidth / 2 + barSpacing / 2;
-      const devScore = devTimeScores[index];
-      const devBarHeight = (chartHeight * devScore) / 10;
-      const devY = padding.top + chartHeight - devBarHeight;
+  //     // 個人開発時間の棒グラフ（右）
+  //     const devX = baseX + barWidth / 2 + barSpacing / 2;
+  //     const devScore = devTimeScores[index];
+  //     const devBarHeight = (chartHeight * devScore) / 10;
+  //     const devY = padding.top + chartHeight - devBarHeight;
 
-      ctx.fillStyle = CHART_CONFIG.colors.devTime;
-      ctx.fillRect(devX, devY, barWidth, devBarHeight);
-      ctx.strokeStyle = CHART_CONFIG.colors.devTimeBorder;
-      ctx.strokeRect(devX, devY, barWidth, devBarHeight);
-    });
-  };
+  //     ctx.fillStyle = CHART_CONFIG.colors.devTime;
+  //     ctx.fillRect(devX, devY, barWidth, devBarHeight);
+  //     ctx.strokeStyle = CHART_CONFIG.colors.devTimeBorder;
+  //     ctx.strokeRect(devX, devY, barWidth, devBarHeight);
+  //   });
+  // };
 
   const drawLineChart = (
     ctx: CanvasRenderingContext2D,
