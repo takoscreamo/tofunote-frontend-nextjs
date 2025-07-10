@@ -218,12 +218,32 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     });
   };
 
+  // 平均スコア計算
+  const total = diaries.length;
+  const avg = total === 0 ? 0 : diaries.reduce((sum, d) => sum + d.mental, 0) / total;
+  const avgRounded = Math.round(avg * 10) / 10;
+  let tofuType = { name: '', img: '', range: '' };
+  if (avg >= 1 && avg < 4) tofuType = { name: '絹豆腐メンタル', img: '/tofu-kinu.png', range: '1~3' };
+  else if (avg >= 4 && avg < 7) tofuType = { name: '木綿豆腐メンタル', img: '/tofu-momen.png', range: '4~6' };
+  else if (avg >= 7 && avg < 10) tofuType = { name: '厚揚げメンタル', img: '/tofu-atuage.png', range: '7~9' };
+  else if (avg === 10) tofuType = { name: '鋼のメンタル', img: '/tofu-hagane.png', range: '10' };
+
   return (
     <div style={{ width: "100%", height: 300 }}>
       <canvas
         ref={canvasRef}
         style={{ width: "100%", height: "100%" }}
       />
+      {/* 平均スコアと豆腐アイコン表示 */}
+      {total > 0 && (
+        <div className="flex flex-col items-center mt-6">
+          <div className="text-sm text-gray-600 mt-1">あなたの期間平均スコア: <span className="font-bold text-teal-700">{avgRounded}</span>（{tofuType.range}）</div>
+          <div className="flex items-center gap-2">
+            <img src={tofuType.img} alt={tofuType.name} width={40} height={40} />
+            <span className="text-lg font-bold text-gray-800">{tofuType.name}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }; 
