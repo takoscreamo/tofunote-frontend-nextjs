@@ -114,6 +114,14 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     // X軸ラベル（日付）
     ctx.textAlign = "center";
     ctx.font = "12px Arial";
+    if (data.length === 1) {
+      // 1件だけの場合は中央に日付を描画
+      const x = padding.left + chartWidth / 2;
+      const date = new Date(data[0].date);
+      const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
+      ctx.fillText(dateStr, x, height - padding.bottom + 30);
+      return;
+    }
     data.forEach((diary, index) => {
       const x = padding.left + (chartWidth * index) / (data.length - 1);
       const date = new Date(diary.date);
@@ -170,24 +178,33 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     padding: typeof CHART_CONFIG.padding,
     data: Diary[]
   ) => {
-    if (data.length <= 1) return;
+    if (data.length === 0) return;
 
-    // 折れ線グラフ
     ctx.strokeStyle = CHART_CONFIG.colors.mental;
     ctx.lineWidth = CHART_CONFIG.lineWidth;
-    ctx.beginPath();
 
+    if (data.length === 1) {
+      // データが1件だけの場合、その点のみ中央に描画
+      const x = padding.left + chartWidth / 2;
+      const y = padding.top + (chartHeight * (10 - data[0].mental)) / 10;
+      ctx.beginPath();
+      ctx.arc(x, y, CHART_CONFIG.pointRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = CHART_CONFIG.colors.mental;
+      ctx.fill();
+      return;
+    }
+
+    // 2件以上の場合は折れ線グラフ
+    ctx.beginPath();
     data.forEach((diary, index) => {
       const x = padding.left + (chartWidth * index) / (data.length - 1);
       const y = padding.top + (chartHeight * (10 - diary.mental)) / 10;
-
       if (index === 0) {
         ctx.moveTo(x, y);
       } else {
         ctx.lineTo(x, y);
       }
     });
-
     ctx.stroke();
 
     // データポイント
@@ -195,7 +212,6 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     data.forEach((diary, index) => {
       const x = padding.left + (chartWidth * index) / (data.length - 1);
       const y = padding.top + (chartHeight * (10 - diary.mental)) / 10;
-
       ctx.beginPath();
       ctx.arc(x, y, CHART_CONFIG.pointRadius, 0, 2 * Math.PI);
       ctx.fill();
