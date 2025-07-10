@@ -41,7 +41,7 @@
 ## 📁 プロジェクト構造
 
 ```
-tofu-note-frontend-nextjs/
+tofunote-frontend-nextjs/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── diary/             # 日記機能
@@ -89,7 +89,7 @@ tofu-note-frontend-nextjs/
 1. **リポジトリのクローン**
    ```bash
    git clone <repository-url>
-   cd tofu-note-frontend-nextjs
+   cd tofunote-frontend-nextjs
    ```
 
 2. **依存関係のインストール**
@@ -155,8 +155,8 @@ npm run generate-types # OpenAPI型定義生成
 
 ## 初期構築
 - [公式のGetting Started](https://nextjsjp.org/docs/app/getting-started/installation)の通りに進める
-- `mkdir tofu-note-frontend-nextjs`
-- `cd tofu-note-frontend-nextjs`
+- `mkdir tofunote-frontend-nextjs`
+- `cd tofunote-frontend-nextjs`
 - `npx create-next-app@latest`
 
 ## ゲストログイン・認証フロー仕様
