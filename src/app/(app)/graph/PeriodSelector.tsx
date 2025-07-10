@@ -32,14 +32,15 @@ export const PeriodSelector: React.FC<PeriodSelectorProps> = ({
   onCustomEndDateChange,
 }) => (
   <div className="mb-6 space-y-4">
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
+    <div className="flex items-center w-full justify-between">
+      <label className="text-sm font-medium text-gray-700 whitespace-nowrap">
         表示期間
       </label>
       <select
         value={selectedPeriod}
         onChange={(e) => onPeriodChange(e.target.value as Period)}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        style={{ minWidth: 120 }}
       >
         {PERIOD_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>
