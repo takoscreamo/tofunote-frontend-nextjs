@@ -84,7 +84,7 @@ const SettingsPage = () => {
       <section className="mb-2">
         <h2 className="text-base font-semibold text-gray-800 mb-1">退会</h2>
         <p className="text-xs text-gray-500 mb-2">退会すると、これまで記録した日記やユーザー情報など、すべてのデータが完全に削除されます。<br />この操作は取り消すことができませんが、またいつでも新しく始めることができます。ご利用いただきありがとうございました。</p>
-        <Button onClick={handleDelete} variant="outline" className="w-full border-red-400 text-red-600 hover:bg-red-50 py-2 text-sm">退会</Button>
+        <Button onClick={handleDelete} variant="danger" className="w-full py-2 text-sm">退会</Button>
       </section>
     </div>
   );

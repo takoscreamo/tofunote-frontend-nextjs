@@ -4,7 +4,7 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "danger";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
   className?: string;
@@ -24,9 +24,10 @@ export const Button: React.FC<ButtonProps> = ({
   const baseClasses = "font-medium rounded transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2";
   
   const variantClasses = {
-    primary: "bg-gray-800 text-white hover:bg-gray-700 focus:ring-gray-500",
-    secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500",
-    outline: "border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500",
+    primary: "bg-teal-500 text-white hover:bg-teal-600 focus:ring-teal-500",
+    secondary: "bg-teal-100 text-teal-900 hover:bg-teal-200 focus:ring-teal-500",
+    outline: "border border-teal-300 text-teal-700 hover:bg-teal-50 focus:ring-teal-500",
+    danger: "border border-red-600 text-red-600 hover:bg-red-50 focus:ring-red-500",
   };
   
   const sizeClasses = {

@@ -11,11 +11,11 @@ interface Props {
 // グラフの設定
 const CHART_CONFIG = {
   colors: {
-    mental: "#00afcc",
-    sleep: "rgba(0, 175, 204, 0.2)",
-    sleepBorder: "rgba(0, 175, 204, 0.4)",
-    devTime: "rgba(75, 192, 192, 0.2)",
-    devTimeBorder: "rgba(75, 192, 192, 0.4)",
+    mental: "#14b8a6",
+    sleep: "rgba(20, 184, 166, 0.2)",
+    sleepBorder: "rgba(20, 184, 166, 0.4)",
+    devTime: "rgba(20, 184, 166, 0.2)",
+    devTimeBorder: "rgba(20, 184, 166, 0.4)",
     grid: "#e5e7eb",
     text: "#6b7280",
   },

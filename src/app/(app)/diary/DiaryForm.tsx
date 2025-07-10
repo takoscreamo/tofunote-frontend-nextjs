@@ -69,9 +69,9 @@ export const DiaryForm: React.FC<DiaryFormProps> = ({
         {onDeleteDiary && (
           <Button
             type="button"
-            variant="outline"
+            variant="danger"
             size="sm"
-            className="flex-1 border-red-400 text-red-600 hover:bg-red-50"
+            className="flex-1"
             onClick={onDeleteDiary}
             disabled={isLoading}
           >
