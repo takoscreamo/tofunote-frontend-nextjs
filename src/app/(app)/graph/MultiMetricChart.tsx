@@ -91,8 +91,12 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
       ctx.moveTo(padding.left, y);
       ctx.lineTo(width - padding.right, y);
       ctx.stroke();
-      // Y軸ラベルは描画しない
-      // ctx.fillText(i.toString(), padding.left - 15, y + 4);
+      ctx.fillStyle = CHART_CONFIG.colors.text;
+      ctx.font = "12px Arial";
+      ctx.textAlign = "end";
+      // 1の位の位置が揃うように、monospaceフォントを使い、描画位置も微調整
+      ctx.font = "12px 'Menlo', 'Consolas', 'monospace'";
+      ctx.fillText(i.toString().padStart(2, ' '), padding.left - 10, y + 4);
     }
   };
 
