@@ -9,7 +9,7 @@ export const PERIOD_OPTIONS = [
   { value: "3months", label: "3ヶ月" },
   { value: "6months", label: "6ヶ月" },
   { value: "1year", label: "1年" },
-  { value: "custom", label: "カスタム期間" },
+  { value: "custom", label: "カスタム" },
 ] as const;
 
 export type { Period };
