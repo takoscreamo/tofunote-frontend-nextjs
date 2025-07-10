@@ -238,7 +238,7 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
   let tofuType = { name: '', img: '', range: '' };
   if (avg >= 1 && avg < 4) tofuType = { name: '絹豆腐メンタル', img: '/tofu-kinu.png', range: '1~3' };
   else if (avg >= 4 && avg < 7) tofuType = { name: '木綿豆腐メンタル', img: '/tofu-momen.png', range: '4~6' };
-  else if (avg >= 7 && avg < 10) tofuType = { name: '厚揚げメンタル', img: '/tofu-atuage.png', range: '7~9' };
+  else if (avg >= 7 && avg < 10) tofuType = { name: '焼き豆腐メンタル', img: '/tofu-yaki.png', range: '7~9' };
   else if (avg === 10) tofuType = { name: '鋼のメンタル', img: '/tofu-hagane.png', range: '10' };
 
   // 点の座標リストを計算する関数

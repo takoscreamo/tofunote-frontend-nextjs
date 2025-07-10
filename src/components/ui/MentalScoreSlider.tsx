@@ -24,8 +24,8 @@ const getTofuInfo = (score: number) => {
     };
   } else if (score >= 7 && score <= 9) {
     return {
-      name: "厚揚げメンタル",
-      image: "/tofu-atuage.png",
+      name: "焼き豆腐メンタル",
+      image: "/tofu-yaki.png",
       description: "わりかし元気かも"
     };
   } else {
