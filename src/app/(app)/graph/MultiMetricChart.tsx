@@ -84,21 +84,15 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     ctx.lineWidth = 1;
 
     // 水平グリッド線
-    for (let i = 0; i <= 10; i++) {
-      const y = padding.top + (chartHeight * (10 - i)) / 10;
+    for (let i = 1; i <= 10; i++) {
+      const y = padding.top + (chartHeight * (10 - i)) / 9;
+      // グリッド線
       ctx.beginPath();
       ctx.moveTo(padding.left, y);
       ctx.lineTo(width - padding.right, y);
       ctx.stroke();
-    }
-
-    // Y軸ラベル
-    ctx.fillStyle = CHART_CONFIG.colors.text;
-    ctx.font = "12px Arial";
-    ctx.textAlign = "right";
-    for (let i = 0; i <= 10; i++) {
-      const y = padding.top + (chartHeight * (10 - i)) / 10;
-      ctx.fillText(i.toString(), padding.left - 15, y + 4);
+      // Y軸ラベルは描画しない
+      // ctx.fillText(i.toString(), padding.left - 15, y + 4);
     }
   };
 
@@ -186,7 +180,7 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     if (data.length === 1) {
       // データが1件だけの場合、その点のみ中央に描画
       const x = padding.left + chartWidth / 2;
-      const y = padding.top + (chartHeight * (10 - data[0].mental)) / 10;
+      const y = padding.top + (chartHeight * (10 - data[0].mental)) / 9;
       ctx.beginPath();
       ctx.arc(x, y, CHART_CONFIG.pointRadius, 0, 2 * Math.PI);
       ctx.fillStyle = CHART_CONFIG.colors.mental;
@@ -198,7 +192,7 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     ctx.beginPath();
     data.forEach((diary, index) => {
       const x = padding.left + (chartWidth * index) / (data.length - 1);
-      const y = padding.top + (chartHeight * (10 - diary.mental)) / 10;
+      const y = padding.top + (chartHeight * (10 - diary.mental)) / 9;
       if (index === 0) {
         ctx.moveTo(x, y);
       } else {
@@ -211,7 +205,7 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     ctx.fillStyle = CHART_CONFIG.colors.mental;
     data.forEach((diary, index) => {
       const x = padding.left + (chartWidth * index) / (data.length - 1);
-      const y = padding.top + (chartHeight * (10 - diary.mental)) / 10;
+      const y = padding.top + (chartHeight * (10 - diary.mental)) / 9;
       ctx.beginPath();
       ctx.arc(x, y, CHART_CONFIG.pointRadius, 0, 2 * Math.PI);
       ctx.fill();
