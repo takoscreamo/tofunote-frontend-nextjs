@@ -35,7 +35,8 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 </nav>
                 {/* ニックネーム表示 */}
                 <NicknameDisplay />
-                <Link
+                {/* アカウントアイコン */}
+                {/* <Link
                   href="/settings"
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
                 >
@@ -53,7 +54,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                       d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                     />
                   </svg>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
