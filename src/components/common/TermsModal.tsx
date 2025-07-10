@@ -64,7 +64,7 @@ export const TermsModal: React.FC<TermsModalProps> = ({ open, onClose }) => {
           <h2 className="font-semibold mt-4">第7条（プライバシー・個人情報の取扱い・外部連携）</h2>
           <p>
             本サービスは、ユーザーが入力した日記等のプライベートな情報を適切に管理し、第三者に開示・提供しません。ただし、法令に基づく場合や、サービス運営上必要な範囲で利用する場合を除きます。<br/>
-            入力された日記データやメンタルスコア等を、自然言語処理やメンタル傾向分析の目的で、OpenAI等の外部APIに送信することがあります。この際、個人が特定されないような匿名化処理を行うよう努めます。
+            入力された日記データやメンタルスコア等を、自然言語処理やメンタル傾向分析の目的で、OpenAI等の外部APIに送信することがあります。
           </p>
 
           <h2 className="font-semibold mt-4">第8条（利用者の責任）</h2>
@@ -82,7 +82,7 @@ export const TermsModal: React.FC<TermsModalProps> = ({ open, onClose }) => {
             本規約の解釈にあたっては、日本法を準拠法とします。本サービスに関して紛争が生じた場合には、運営者の所在地を管轄する裁判所を専属的合意管轄とします。
           </p>
 
-          <p className="mt-6 text-gray-400">2025年7月9日 制定</p>
+          <p className="mt-6 text-gray-400">2025年7月10日 制定</p>
         </div>
       </div>
     </div>

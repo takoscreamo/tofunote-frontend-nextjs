@@ -84,7 +84,7 @@ export default function LoginPage() {
         <h1 className="text-3xl font-extrabold mb-2 tracking-tight">TOFU NOTE</h1>
         <p className="text-base text-gray-700 mb-1 text-center">豆腐メンタルを俯瞰するアプリ</p>
         <p className="text-xs text-gray-500 mb-6 text-center">メールアドレス不要・匿名で使えます。</p>
-        <div className="flex items-start mb-6 w-full">
+        <div className="flex items-center justify-center mb-6 w-full">
           <input
             id="agree"
             type="checkbox"
