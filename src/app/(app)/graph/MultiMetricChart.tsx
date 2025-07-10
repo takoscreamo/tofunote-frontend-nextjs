@@ -211,13 +211,23 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     ctx.stroke();
 
     // データポイント
-    ctx.fillStyle = CHART_CONFIG.colors.mental;
     data.forEach((diary, index) => {
       const x = padding.left + (chartWidth * index) / (data.length - 1);
       const y = padding.top + (chartHeight * (10 - diary.mental)) / 9;
       ctx.beginPath();
       ctx.arc(x, y, CHART_CONFIG.pointRadius, 0, 2 * Math.PI);
-      ctx.fill();
+      if (diary.diary && diary.diary.trim() !== "") {
+        // メモあり：塗りつぶし
+        ctx.fillStyle = CHART_CONFIG.colors.mental;
+        ctx.fill();
+      } else {
+        // メモなし：白抜き＋枠線
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+        ctx.strokeStyle = CHART_CONFIG.colors.mental;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
     });
   };
 
