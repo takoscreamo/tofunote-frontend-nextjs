@@ -3,6 +3,7 @@ import { DatePicker } from "@/components/ui/DatePicker";
 import { MentalScoreSlider } from "@/components/ui/MentalScoreSlider";
 import { TextArea } from "@/components/ui/TextArea";
 import { Button } from "@/components/ui/Button";
+import { getTodayDateInTokyo } from "@/utils/date";
 
 interface DiaryFormProps {
   formData: {
@@ -39,6 +40,7 @@ export const DiaryForm: React.FC<DiaryFormProps> = ({
         onPreviousDay={onPreviousDay}
         onNextDay={onNextDay}
         required
+        max={getTodayDateInTokyo()} // 追加
       />
       
       <MentalScoreSlider

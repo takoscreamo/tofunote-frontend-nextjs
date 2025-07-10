@@ -90,6 +90,13 @@ export const useDiaryForm = ({ initialDate }: UseDiaryFormProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // 未来日付のバリデーション
+    const today = getTodayDateInTokyo();
+    if (formData.date > today) {
+      toast.error("未来の日付では登録できません", { position: "top-right" });
+      return;
+    }
+
     const body = {
       date: formatDate(formData.date),
       mental: formData.mentalScore,

@@ -7,6 +7,7 @@ interface DatePickerProps {
   onNextDay: () => void;
   label?: string;
   required?: boolean;
+  max?: string; // 追加
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -16,6 +17,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   onNextDay,
   label = "日付",
   required = false,
+  max, // 追加
 }) => {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
@@ -42,12 +44,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           onChange={handleDateChange}
           className="flex-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-gray-500"
           required={required}
+          max={max} // 追加
         />
         <button
           type="button"
           onClick={onNextDay}
           className="p-2 border rounded hover:bg-gray-100 text-gray-700 transition-colors"
           aria-label="次の日"
+          disabled={max !== undefined && value >= max}
         >
           &gt;
         </button>
