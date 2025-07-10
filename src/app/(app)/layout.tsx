@@ -25,6 +25,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               <div className="flex items-center">
                 <Link href="/" className="flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors">
                   <img src="/logotext.png" alt="アプリロゴ" className="h-8 w-auto" />
+                  <span className="text-xs text-gray-400 font-normal align-bottom">ver 0.1.0</span>
                 </Link>
               </div>
               <div className="flex items-center space-x-8">
