@@ -20,8 +20,8 @@ const CHART_CONFIG = {
     text: "#6b7280",
   },
   padding: {
-    top: 40,
-    bottom: 100,
+    top: 20,      // 40 → 20
+    bottom: 60,   // 100 → 60
     left: 40,
     right: 40,
   },
@@ -229,7 +229,7 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
   else if (avg === 10) tofuType = { name: '鋼のメンタル', img: '/tofu-hagane.png', range: '10' };
 
   return (
-    <div style={{ width: "100%", height: 300 }}>
+    <div style={{ width: "100%", height: 200 }}>
       <canvas
         ref={canvasRef}
         style={{ width: "100%", height: "100%" }}
