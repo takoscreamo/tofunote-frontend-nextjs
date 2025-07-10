@@ -49,8 +49,8 @@ export const DiaryForm: React.FC<DiaryFormProps> = ({
       <TextArea
         value={formData.content}
         onChange={onContentChange}
-        label="日記"
-        placeholder="今日の出来事や気持ちを書いてみましょう..."
+        label="メモ"
+        placeholder="今日の出来事や気持ちを書いてみましょう！"
         id="content"
         rows={3}
       />

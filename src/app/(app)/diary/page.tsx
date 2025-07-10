@@ -23,7 +23,7 @@ export default function DiaryEdit() {
     <div className="max-w-2xl mx-auto px-4 py-2">
       <ToastContainer position="top-right" toastClassName="custom-toast" className="custom-toast-body" />
       
-      <h1 className="text-2xl font-bold mb-4">日記を書く</h1>
+      <h1 className="text-2xl font-bold mb-4">記録する</h1>
       
       <DiaryForm
         formData={formData}

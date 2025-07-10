@@ -29,7 +29,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               </div>
               <div className="flex items-center space-x-8">
                 <nav className="hidden md:flex items-center space-x-8">
-                  <Link href="/diary" className="text-gray-600 hover:text-gray-900">日記</Link>
+                  <Link href="/diary" className="text-gray-600 hover:text-gray-900">記録</Link>
                   <Link href="/graph" className="text-gray-600 hover:text-gray-900">グラフ</Link>
                   <Link href="/settings" className="text-gray-600 hover:text-gray-900">設定</Link>
                 </nav>
@@ -71,9 +71,9 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               className="flex flex-col items-center justify-center text-gray-600 hover:text-gray-900"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
               </svg>
-              <span className="text-xs mt-1">日記</span>
+              <span className="text-xs mt-1">記録</span>
             </Link>
             <Link
               href="/graph"
