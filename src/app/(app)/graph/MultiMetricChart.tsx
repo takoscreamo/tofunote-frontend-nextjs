@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useCallback } from "react";
+import { FC, useEffect, useRef, useCallback, useState } from "react";
 import type { components } from "@/types/openapi";
 
 // Diary型
@@ -33,6 +33,9 @@ const CHART_CONFIG = {
 
 export const MultiMetricChart: FC<Props> = ({ diaries }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // ポイント選択用state
+  const [selectedDiary, setSelectedDiary] = useState<Diary | null>(null);
+  const [popupPos, setPopupPos] = useState<{ x: number; y: number } | null>(null);
 
   // drawChartはuseEffectの依存配列に含める必要があるため、useCallbackでメモ化する
   const drawChart = useCallback((
@@ -59,13 +62,12 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     if (!canvas || diaries.length === 0) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const dpr = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
+    canvas.width = rect.width * (window.devicePixelRatio || 1);
+    canvas.height = rect.height * (window.devicePixelRatio || 1);
     canvas.style.width = rect.width + "px";
     canvas.style.height = rect.height + "px";
-    ctx.scale(dpr, dpr);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
     const sortedData = [...diaries].sort((a, b) => a.date.localeCompare(b.date));
     // const sleepScores = sortedData.map(() => Math.floor(Math.random() * 5) + 5);
     // const devTimeScores = sortedData.map(() => Math.floor(Math.random() * 4) + 1);
@@ -230,12 +232,127 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
   else if (avg >= 7 && avg < 10) tofuType = { name: '厚揚げメンタル', img: '/tofu-atuage.png', range: '7~9' };
   else if (avg === 10) tofuType = { name: '鋼のメンタル', img: '/tofu-hagane.png', range: '10' };
 
+  // 点の座標リストを計算する関数
+  const getPointPositions = (rect: DOMRect, data: Diary[]) => {
+    const { padding } = CHART_CONFIG;
+    const width = rect.width;
+    const height = rect.height;
+    const chartWidth = width - padding.left - padding.right;
+    const chartHeight = height - padding.top - padding.bottom;
+    if (data.length === 0) return [];
+    if (data.length === 1) {
+      const x = padding.left + chartWidth / 2;
+      const y = padding.top + (chartHeight * (10 - data[0].mental)) / 9;
+      return [{ x, y }];
+    }
+    return data.map((diary, index) => {
+      const x = padding.left + (chartWidth * index) / (data.length - 1);
+      const y = padding.top + (chartHeight * (10 - diary.mental)) / 9;
+      return { x, y };
+    });
+  };
+
+  // canvasクリック時の処理
+  const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas || diaries.length === 0) return;
+    const rect = canvas.getBoundingClientRect();
+    // クリック座標（canvas内座標に変換）
+    const clickX = (e.clientX - rect.left);
+    const clickY = (e.clientY - rect.top);
+    // 点の座標リスト取得
+    const sortedData = [...diaries].sort((a, b) => a.date.localeCompare(b.date));
+    const points = getPointPositions(rect, sortedData);
+    // 近い点を探す
+    const radius = CHART_CONFIG.pointRadius + 4; // 少し余裕を持たせる
+    for (let i = 0; i < points.length; i++) {
+      const { x, y } = points[i];
+      if (Math.hypot(x - clickX, y - clickY) <= radius) {
+        setSelectedDiary(sortedData[i]);
+        setPopupPos({ x, y });
+        return;
+      }
+    }
+    // どの点も押されていなければ非選択
+    setSelectedDiary(null);
+    setPopupPos(null);
+  };
+
   return (
-    <div style={{ width: "100%", height: 200 }}>
+    <div style={{ width: "100%", height: 200, position: "relative", overflow: "visible" }}>
       <canvas
         ref={canvasRef}
         style={{ width: "100%", height: "100%" }}
+        onClick={handleCanvasClick}
       />
+      {/* ポップアップ表示 */}
+      {selectedDiary && popupPos && (
+        (() => {
+          // 右端・左端・上下はみ出し防止ロジック
+          const POPUP_WIDTH = 220; // ポップアップの想定最大幅
+          const POPUP_HEIGHT = 120; // ポップアップの想定最大高さ
+          const MARGIN = 8; // 余白
+          let left = popupPos.x;
+          let top = popupPos.y - 60;
+          let transform = "translate(-50%, -100%)";
+          if (typeof window !== "undefined") {
+            const containerRect = canvasRef.current?.getBoundingClientRect();
+            const containerWidth = containerRect?.width || window.innerWidth;
+            const containerHeight = containerRect?.height || window.innerHeight;
+            // 横方向
+            if (popupPos.x + POPUP_WIDTH / 2 + MARGIN > containerWidth) {
+              left = containerWidth - MARGIN;
+              transform = "translate(-100%, -100%)";
+            } else if (popupPos.x - POPUP_WIDTH / 2 - MARGIN < 0) {
+              left = MARGIN;
+              transform = "translate(0, -100%)";
+            }
+            // 縦方向
+            const popupTop = popupPos.y - 60 - POPUP_HEIGHT;
+            const popupBottom = popupPos.y - 60;
+            if (popupTop < 0) {
+              // 上にはみ出す場合は点の下に表示
+              top = popupPos.y + 16; // 点の下に少し余白
+              if (transform === "translate(-50%, -100%)") transform = "translate(-50%, 0)";
+              if (transform === "translate(-100%, -100%)") transform = "translate(-100%, 0)";
+              if (transform === "translate(0, -100%)") transform = "translate(0, 0)";
+            } else if (popupBottom + POPUP_HEIGHT > containerHeight) {
+              // 下にはみ出す場合は点の上に表示（上寄せ）
+              top = containerHeight - POPUP_HEIGHT - MARGIN;
+              // transformはそのまま
+            }
+          }
+          return (
+            <div
+              style={{
+                position: "absolute",
+                left,
+                top,
+                background: "white",
+                border: "1px solid #ccc",
+                borderRadius: 8,
+                boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                padding: 12,
+                zIndex: 10000,
+                minWidth: 180,
+                maxWidth: POPUP_WIDTH,
+                pointerEvents: "auto",
+                transform,
+                wordBreak: "break-word"
+              }}
+            >
+              <div className="text-xs text-gray-500 mb-1">{selectedDiary.date}</div>
+              <div className="font-bold text-teal-700 mb-1">メンタルスコア: {selectedDiary.mental}</div>
+              <div className="text-sm text-gray-700 whitespace-pre-wrap">{selectedDiary.diary || "(メモなし)"}</div>
+              <button
+                className="mt-2 text-xs text-blue-500 hover:underline"
+                onClick={() => { setSelectedDiary(null); setPopupPos(null); }}
+                style={{ display: "block", marginLeft: "auto" }}
+              >閉じる</button>
+            </div>
+          );
+        })()
+      )}
       {/* 平均スコアと豆腐アイコン表示 */}
       {total > 0 && (
         <div className="flex flex-col items-center mt-6">
