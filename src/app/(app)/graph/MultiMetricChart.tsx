@@ -120,11 +120,15 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
       ctx.fillText(dateStr, x, height - padding.bottom + 30);
       return;
     }
+    // ラベルの間引き
+    const labelInterval = data.length > 10 ? Math.ceil(data.length / 10) : 1;
     data.forEach((diary, index) => {
       const x = padding.left + (chartWidth * index) / (data.length - 1);
       const date = new Date(diary.date);
       const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
-      ctx.fillText(dateStr, x, height - padding.bottom + 30);
+      if (index % labelInterval === 0 || index === data.length - 1) {
+        ctx.fillText(dateStr, x, height - padding.bottom + 30);
+      }
     });
   };
 
