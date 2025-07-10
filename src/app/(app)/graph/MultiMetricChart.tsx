@@ -52,14 +52,15 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     ctx.clearRect(0, 0, width, height);
     drawGrid(ctx, width, height, chartWidth, chartHeight, padding);
     drawLabels(ctx, width, height, chartWidth, chartHeight, padding, data);
-    // drawBarCharts(ctx, chartWidth, chartHeight, padding, data, sleepScores, devTimeScores); // 棒グラフは一旦非表示
-    drawLineChart(ctx, chartWidth, chartHeight, padding, data);
+    if (data.length > 0) {
+      drawLineChart(ctx, chartWidth, chartHeight, padding, data);
+    }
   }, []); // 依存配列は必要に応じて調整
 
   useEffect(() => {
     // グラフ描画処理。drawChartを依存配列に含めることでESLint警告を回避
     const canvas = canvasRef.current;
-    if (!canvas || diaries.length === 0) return;
+    if (!canvas) return; // diaries.length === 0 でも描画する
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const rect = canvas.getBoundingClientRect();
@@ -69,8 +70,6 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
     canvas.style.height = rect.height + "px";
     ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
     const sortedData = [...diaries].sort((a, b) => a.date.localeCompare(b.date));
-    // const sleepScores = sortedData.map(() => Math.floor(Math.random() * 5) + 5);
-    // const devTimeScores = sortedData.map(() => Math.floor(Math.random() * 4) + 1);
     drawChart(ctx, rect, sortedData);
   }, [diaries, drawChart]); // drawChartを依存配列に追加し、ESLint警告を防ぐ
 
