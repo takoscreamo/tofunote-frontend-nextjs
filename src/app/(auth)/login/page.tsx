@@ -44,6 +44,8 @@ export default function LoginPage() {
     tryAutoLogin();
   }, [isLoggedIn, setLogin, router]);
 
+  if (isAuthChecking) return null;
+
   // ゲストログインボタン押下時の処理
   const handleLogin = async () => {
     setLoading(true);
