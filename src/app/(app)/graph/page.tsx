@@ -26,7 +26,7 @@ export default function GraphPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-2">
-      <h1 className="text-2xl font-bold mb-6">メンタルスコア推移グラフ</h1>
+      <h1 className="text-2xl font-bold mb-6">豆腐メンタル推移グラフ</h1>
       
       <PeriodSelector
         selectedPeriod={selectedPeriod}
