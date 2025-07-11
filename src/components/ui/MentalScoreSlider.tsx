@@ -103,8 +103,8 @@ export const MentalScoreSlider: React.FC<MentalScoreSliderProps> = ({
       />
       
       {/* 豆腐ロゴ表示エリア */}
-      <div className="p-6 from-teal-50 to-cyan-50 rounded-lg">
-        <div className="flex flex-col items-center justify-center space-y-4">
+      <div className="p-4 from-teal-50 to-cyan-50 rounded-lg">
+        <div className="flex flex-col items-center justify-center space-y-2">
           <div className="flex-shrink-0">
             <img
               src={tofuInfo.image}
@@ -112,10 +112,10 @@ export const MentalScoreSlider: React.FC<MentalScoreSliderProps> = ({
               className="w-24 h-24 md:w-32 md:h-32 object-contain"
             />
           </div>
+          <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 text-center">
+            {tofuInfo.name}
+          </h3>
           <div className="text-center">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
-              {tofuInfo.name}
-            </h3>
             <p className="text-base md:text-lg text-gray-600">
               {tofuInfo.description}
             </p>
