@@ -8,6 +8,7 @@ import type { paths } from "@/types/openapi";
 import { EP } from "@/utils/endpoints";
 import { TermsModal } from '@/components/common/TermsModal';
 import Image from 'next/image';
+import ImageModal from '@/components/common/ImageModal';
 
 export default function LoginPage() {
   const setLogin = useSetAtom(loginAtom);
@@ -20,6 +21,7 @@ export default function LoginPage() {
   const [hasRefreshToken, setHasRefreshToken] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
+  const [modalImage, setModalImage] = useState<{src: string, alt: string} | null>(null);
 
   useEffect(() => {
     // すでにログイン済みなら即トップページへリダイレクト
@@ -121,19 +123,22 @@ export default function LoginPage() {
         <div className="text-sm text-gray-500 mb-2">サンプル画面（イメージ）</div>
         <div className="flex flex-row gap-2 w-full justify-center">
           <div className="flex flex-col items-center min-w-[90px]">
-            <Image src="/sample_diary.png" alt="記録画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300" />
+            <Image src="/sample_diary.png" alt="記録画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300 cursor-pointer" onClick={() => setModalImage({src: '/sample_diary.png', alt: '記録画面サンプル'})} />
             <span className="text-xs text-gray-600">記録画面</span>
           </div>
           <div className="flex flex-col items-center min-w-[90px]">
-            <Image src="/sample_graph.png" alt="グラフ画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300" />
+            <Image src="/sample_graph.png" alt="グラフ画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300 cursor-pointer" onClick={() => setModalImage({src: '/sample_graph.png', alt: 'グラフ画面サンプル'})} />
             <span className="text-xs text-gray-600">グラフ画面</span>
           </div>
           <div className="flex flex-col items-center min-w-[90px]">
-            <Image src="/sample_settings.png" alt="設定画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300" />
+            <Image src="/sample_settings.png" alt="設定画面サンプル" width={100} height={70} className="rounded-lg shadow mb-2 object-contain border border-dashed border-gray-300 cursor-pointer" onClick={() => setModalImage({src: '/sample_settings.png', alt: '設定画面サンプル'})} />
             <span className="text-xs text-gray-600">設定画面</span>
           </div>
         </div>
       </div>
+      {modalImage && (
+        <ImageModal open={true} src={modalImage.src} alt={modalImage.alt} onClose={() => setModalImage(null)} />
+      )}
     </div>
   );
 } 
