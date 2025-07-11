@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image';
 
 interface MentalScoreSliderProps {
   value: number;
@@ -106,9 +107,11 @@ export const MentalScoreSlider: React.FC<MentalScoreSliderProps> = ({
       <div className="p-4 from-teal-50 to-cyan-50 rounded-lg">
         <div className="flex flex-col items-center justify-center space-y-2">
           <div className="flex-shrink-0">
-            <img
+            <Image
               src={tofuInfo.image}
               alt={tofuInfo.name}
+              width={96}
+              height={96}
               className="w-24 h-24 md:w-32 md:h-32 object-contain"
             />
           </div>

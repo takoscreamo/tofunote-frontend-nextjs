@@ -1,5 +1,6 @@
 import { FC, useEffect, useRef, useCallback, useState } from "react";
 import type { components } from "@/types/openapi";
+import Image from 'next/image';
 
 // Diary型
 export type Diary = components["schemas"]["Diary"];
@@ -367,7 +368,7 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
         <div className="flex flex-col items-center mt-6">
           <div className="text-sm text-gray-600 mt-1">あなたの期間平均スコア: <span className="font-bold text-teal-700">{avgRounded}</span>（{tofuType.range}）</div>
           <div className="flex items-center gap-2">
-            <img src={tofuType.img} alt={tofuType.name} width={40} height={40} />
+            <Image src={tofuType.img} alt={tofuType.name} width={40} height={40} />
             <span className="text-lg font-bold text-gray-800">{tofuType.name}</span>
           </div>
         </div>

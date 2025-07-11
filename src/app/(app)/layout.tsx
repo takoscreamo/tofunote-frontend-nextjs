@@ -4,6 +4,7 @@ import AuthGuard from "@/components/common/AuthGuard";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { NicknameDisplay } from "@/components/common/NicknameDisplay";
+import Image from 'next/image';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +25,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
                 <Link href="/" className="flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors">
-                  <img src="/logotext.png" alt="アプリロゴ" className="h-8 w-auto" />
+                  <Image src="/logotext.png" alt="アプリロゴ" width={100} height={32} />
                   <span className="text-xs text-gray-400 font-normal align-bottom">ver 0.1.0</span>
                 </Link>
               </div>
