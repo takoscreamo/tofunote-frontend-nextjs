@@ -217,11 +217,11 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
       ctx.beginPath();
       ctx.arc(x, y, CHART_CONFIG.pointRadius, 0, 2 * Math.PI);
       if (diary.diary && diary.diary.trim() !== "") {
-        // メモあり：塗りつぶし
+        // 日記あり：塗りつぶし
         ctx.fillStyle = CHART_CONFIG.colors.mental;
         ctx.fill();
       } else {
-        // メモなし：白抜き＋枠線
+        // 日記なし：白抜き＋枠線
         ctx.fillStyle = "#fff";
         ctx.fill();
         ctx.strokeStyle = CHART_CONFIG.colors.mental;
@@ -352,7 +352,7 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
             >
               <div className="text-xs text-gray-500 mb-1">{selectedDiary.date}</div>
               <div className="font-bold text-teal-700 mb-1">メンタルスコア: {selectedDiary.mental}</div>
-              <div className="text-sm text-gray-700 whitespace-pre-wrap">{selectedDiary.diary || "(メモなし)"}</div>
+              <div className="text-sm text-gray-700 whitespace-pre-wrap">{selectedDiary.diary || "(日記なし)"}</div>
               <button
                 className="mt-2 text-xs text-blue-500 hover:underline"
                 onClick={() => { setSelectedDiary(null); setPopupPos(null); }}
