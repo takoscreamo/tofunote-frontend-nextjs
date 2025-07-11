@@ -93,6 +93,14 @@ const SettingsPage = () => {
         <button type="button" disabled className="w-full py-2 text-sm bg-gray-200 text-gray-500 rounded font-semibold cursor-not-allowed mb-1">Googleで連携（近日リリース）</button>
       </section>
       <hr className="my-6" />
+      {/* 利用規約リンク追加 */}
+      <div className="flex justify-center mb-4">
+        <button type="button" className="text-xs text-gray-500 underline hover:text-blue-600" onClick={() => setTermsOpen(true)}>
+          利用規約
+        </button>
+      </div>
+      {termsOpen && <TermsModal open={termsOpen} onClose={() => setTermsOpen(false)} />}
+      {/* お問い合わせ */}
       <div className="flex flex-col items-center mt-8 mb-4">
         <span className="text-xs text-gray-400 mb-1">お問い合わせ</span>
         <div className="flex gap-4">
@@ -104,13 +112,6 @@ const SettingsPage = () => {
           </a>
         </div>
       </div>
-      {/* 利用規約リンク追加 */}
-      <div className="flex justify-center mb-4">
-        <button type="button" className="text-xs text-gray-500 underline hover:text-blue-600" onClick={() => setTermsOpen(true)}>
-          利用規約
-        </button>
-      </div>
-      {termsOpen && <TermsModal open={termsOpen} onClose={() => setTermsOpen(false)} />}
     </div>
   );
 };
