@@ -18,10 +18,23 @@
   - 期間平均スコア表示
   - レスポンシブ対応・ローディング表示
 
-- **設定・お知らせ**
+- **設定**
   - ユーザー設定画面
   - 退会（全データ削除）
-  - お知らせページ、利用規約ページ
+
+- **サブページ**
+  - **お知らせページ**（/notices）
+    - お知らせ一覧を表示
+  - **使い方ページ**（/howto）
+    - サンプル画像のカルーセル（左右ボタン・ドット付き）＋説明
+    - 画像クリックでモーダル拡大表示
+    - ログイン前後どちらからもアクセス可能
+  - **利用規約ページ**（/terms）
+    - TermsModalで利用規約を表示
+    - ×ボタンで「前のページに戻る」挙動
+  - **お問い合わせページ**（/contact）
+    - 独立したページで案内文付き
+    - 設定画面下部から独立
 
 - **認証・ゲストログイン**
   - ゲストユーザー自動ログイン（refresh_token管理）
@@ -47,27 +60,35 @@
 
 ---
 
-## ディレクトリ構成
+## ディレクトリ構成（2024/06時点）
 
 ```
 tofunote-frontend-nextjs/
 ├── src/
-│   ├── app/                # Next.js App Router
-│   │   ├── diary/          # 日記機能
-│   │   ├── graph/          # グラフ機能
-│   │   ├── notices/        # お知らせ
-│   │   ├── settings/       # 設定
-│   │   └── (auth)/login/   # 認証・ログイン
-│   ├── components/         # 再利用可能コンポーネント
-│   │   ├── common/         # 共通
-│   │   └── ui/             # UIパーツ
-│   ├── atoms/              # Jotaiアトム
-│   ├── fetch/              # API通信
-│   ├── hooks/              # カスタムフック
-│   ├── types/              # 型定義
-│   └── utils/              # ユーティリティ
-├── public/                 # 静的ファイル
-├── openapi.yml             # OpenAPI仕様
+│   ├── app/
+│   │   ├── (app)/
+│   │   │   ├── contact/         # お問い合わせページ
+│   │   │   ├── diary/           # 日記機能
+│   │   │   ├── graph/           # グラフ機能
+│   │   │   ├── howto/           # 使い方ページ（カルーセル）
+│   │   │   ├── notices/         # お知らせ
+│   │   │   ├── settings/        # 設定
+│   │   │   └── terms/           # 利用規約
+│   │   ├── (auth)/
+│   │   │   └── login/           # 認証・ログイン
+│   │   ├── globals.css
+│   │   ├── layout.tsx           # ルートレイアウト
+│   │   └── not-found.tsx
+│   ├── atoms/                   # Jotaiアトム
+│   ├── components/
+│   │   ├── common/              # 共通コンポーネント（AuthGuard, HamburgerMenu, TermsModal等）
+│   │   └── ui/                  # UIパーツ（Button, DatePicker, MentalScoreSlider等）
+│   ├── fetch/                   # API通信
+│   ├── hooks/                   # カスタムフック
+│   ├── types/                   # 型定義
+│   └── utils/                   # ユーティリティ
+├── public/                      # 静的ファイル・SVGアイコン
+├── openapi.yml                  # OpenAPI仕様
 └── package.json
 ```
 
@@ -125,13 +146,14 @@ tofunote-frontend-nextjs/
 
 ### 開発フロー
 
-- 新機能は `src/app/` 配下にページとして作成
+- 新機能は `src/app/(app)/` 配下にページとして作成
 - 再利用可能なUIは `src/components/` へ
 - カスタムフックは `src/hooks/` へ
 - APIエンドポイントは `src/utils/endpoints.ts` で管理
 - データ取得は `src/fetch/fetcher.ts` + SWR
 - API型定義は`openapi.yml`を元にコマンドで`src/types/openapi.d.ts`を自動生成
 - グローバル状態はJotaiで管理
+- SVGアイコンは`public/`配下に配置
 
 ### コーディング規約
 
