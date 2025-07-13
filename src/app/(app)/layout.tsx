@@ -104,7 +104,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               className="flex flex-col items-center justify-center text-gray-600 hover:text-gray-900"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.75 18.963l-4 1 1-4 12.112-12.476z" />
               </svg>
               <span className="text-xs mt-1">記録</span>
             </Link>
