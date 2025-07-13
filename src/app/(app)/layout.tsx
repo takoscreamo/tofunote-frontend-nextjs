@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { NicknameDisplay } from "@/components/common/NicknameDisplay";
 import Image from 'next/image';
+import HamburgerMenu from "@/components/common/HamburgerMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,34 +35,37 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                   <Link href="/diary" className="text-gray-600 hover:text-gray-900">記録</Link>
                   <Link href="/graph" className="text-gray-600 hover:text-gray-900">グラフ</Link>
                   <Link href="/settings" className="text-gray-600 hover:text-gray-900">設定</Link>
-                  <Link href="/howto" className="text-gray-500 hover:text-gray-700 transition-colors" aria-label="使い方">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <circle cx="12" cy="12" r="10" strokeWidth="2" fill="none" />
-                      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 17h0" />
-                      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 13c0-1.1.9-2 2-2s2-.9 2-2-1.12-2-2.5-2S10 7.9 10 9" />
-                    </svg>
-                  </Link>
                 </nav>
-                {/* ニックネーム表示 */}
-                <div className="flex items-center">
-                  <NicknameDisplay />
-                  <Link href="/notices" className="ml-2 flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0" aria-label="お知らせ">
+                {/* PC用: お知らせ・使い方・利用規約・お問い合わせアイコン */}
+                <div className="hidden md:flex items-center space-x-4 ml-4">
+                  <Link href="/notices" className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors" aria-label="お知らせ">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
                   </Link>
-                  {/* モバイル用「使い方」アイコン（ベルマークの右側） */}
-                  <Link
-                    href="/howto"
-                    className="flex md:hidden items-center justify-center ml-2 text-gray-500 hover:text-gray-700 transition-colors"
-                    aria-label="使い方"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <Link href="/howto" className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors" aria-label="使い方">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <circle cx="12" cy="12" r="10" strokeWidth="2" fill="none" />
                       <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 17h0" />
                       <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 13c0-1.1.9-2 2-2s2-.9 2-2-1.12-2-2.5-2S10 7.9 10 9" />
                     </svg>
                   </Link>
+                  <Link href="/terms" className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors" aria-label="利用規約">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <rect x="4" y="4" width="16" height="16" rx="2" strokeWidth="2" fill="none" />
+                      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M8 8h8M8 12h8M8 16h4" />
+                    </svg>
+                  </Link>
+                  <Link href="/contact" className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors" aria-label="お問い合わせ">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 10.5V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2v-4.5M16 3.5l-4 4-4-4" />
+                    </svg>
+                  </Link>
+                </div>
+                {/* ニックネーム表示・ハンバーガーメニュー */}
+                <div className="flex items-center">
+                  <NicknameDisplay />
+                  <HamburgerMenu />
                 </div>
                 {/* アカウントアイコン */}
                 {/* <Link
