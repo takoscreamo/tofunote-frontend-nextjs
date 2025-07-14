@@ -49,7 +49,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         <button
           type="button"
           onClick={onNextDay}
-          className="p-2 border rounded hover:bg-gray-100 text-gray-700 transition-colors"
+          className={`p-2 border rounded hover:bg-gray-100 text-gray-700 transition-colors ${max !== undefined && value >= max ? 'opacity-50 cursor-not-allowed bg-gray-200 text-gray-400' : ''}`}
           aria-label="次の日"
           disabled={max !== undefined && value >= max}
         >
