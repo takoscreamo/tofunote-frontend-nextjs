@@ -16,11 +16,70 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, onImageClick }) =
   const [current, setCurrent] = useState(0);
   const total = images.length;
 
+  // スワイプ用の状態
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [dragging, setDragging] = useState(false);
+
   const goPrev = () => setCurrent((prev) => (prev - 1 + total) % total);
   const goNext = () => setCurrent((prev) => (prev + 1) % total);
 
+  // スワイプ判定
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.touches[0].clientX);
+  };
+  const handleTouchEnd = () => {
+    if (touchStartX !== null && touchEndX !== null) {
+      const diff = touchStartX - touchEndX;
+      if (diff > 40) {
+        goNext();
+      } else if (diff < -40) {
+        goPrev();
+      }
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
+  // マウスドラッグ対応
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setDragStartX(e.clientX);
+    setDragging(true);
+  };
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!dragging) return;
+    setTouchEndX(e.clientX);
+  };
+  const handleMouseUp = () => {
+    if (dragging && dragStartX !== null && touchEndX !== null) {
+      const diff = dragStartX - touchEndX;
+      if (diff > 40) {
+        goNext();
+      } else if (diff < -40) {
+        goPrev();
+      }
+    }
+    setDragging(false);
+    setDragStartX(null);
+    setTouchEndX(null);
+  };
+
   return (
-    <div className="relative w-full max-w-xs mx-auto">
+    <div
+      className="relative w-full max-w-xs mx-auto"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      style={{ userSelect: dragging ? 'none' : undefined }}
+    >
       <div className="overflow-hidden rounded-lg shadow border border-dashed border-gray-300">
         <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${current * 100}%)` }}>
           {images.map((img) => (
