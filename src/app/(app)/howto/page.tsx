@@ -11,9 +11,9 @@ export default function HowToPage() {
       <p className="mb-4 text-gray-700">TOFU NOTEは、あなたのメンタルの記録・可視化・振り返りをサポートするアプリです。<br />下記のサンプル画面を参考に、日々の記録やグラフ、設定機能をご活用ください。</p>
       <ImageCarousel
         images={[
-          { src: '/sample_diary.png', alt: '記録画面サンプル', label: '記録画面' },
-          { src: '/sample_graph.png', alt: 'グラフ画面サンプル', label: 'グラフ画面' },
-          { src: '/sample_settings.png', alt: '設定画面サンプル', label: '設定画面' },
+          { src: '/sample_diary.png.webp', alt: '記録画面サンプル', label: '記録画面' },
+          { src: '/sample_graph.png.webp', alt: 'グラフ画面サンプル', label: 'グラフ画面' },
+          { src: '/sample_settings.png.webp', alt: '設定画面サンプル', label: '設定画面' },
         ]}
         onImageClick={(img) => setModalImage({ src: img.src, alt: img.alt })}
       />

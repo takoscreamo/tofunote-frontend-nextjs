@@ -237,10 +237,10 @@ export const MultiMetricChart: FC<Props> = ({ diaries }) => {
   const avg = total === 0 ? 0 : diaries.reduce((sum, d) => sum + d.mental, 0) / total;
   const avgRounded = Math.round(avg * 10) / 10;
   let tofuType = { name: '', img: '', range: '' };
-  if (avg >= 1 && avg < 4) tofuType = { name: '絹豆腐メンタル', img: '/tofu-kinu.png', range: '1~3' };
-  else if (avg >= 4 && avg < 7) tofuType = { name: '木綿豆腐メンタル', img: '/tofu-momen.png', range: '4~6' };
-  else if (avg >= 7 && avg < 10) tofuType = { name: '焼き豆腐メンタル', img: '/tofu-yaki.png', range: '7~9' };
-  else if (avg === 10) tofuType = { name: '鋼のメンタル', img: '/tofu-hagane.png', range: '10' };
+  if (avg >= 1 && avg < 4) tofuType = { name: '絹豆腐メンタル', img: '/tofu-kinu.png.webp', range: '1~3' };
+  else if (avg >= 4 && avg < 7) tofuType = { name: '木綿豆腐メンタル', img: '/tofu-momen.png.webp', range: '4~6' };
+  else if (avg >= 7 && avg < 10) tofuType = { name: '焼き豆腐メンタル', img: '/tofu-yaki.png.webp', range: '7~9' };
+  else if (avg === 10) tofuType = { name: '鋼のメンタル', img: '/tofu-hagane.png.webp', range: '10' };
 
   // 点の座標リストを計算する関数
   const getPointPositions = (rect: DOMRect, data: Diary[]) => {

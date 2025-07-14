@@ -14,25 +14,25 @@ const getTofuInfo = (score: number) => {
   if (score >= 1 && score <= 3) {
     return {
       name: "絹豆腐メンタル",
-      image: "/tofu-kinu.png",
+      image: "/tofu-kinu.png.webp",
       description: "今日はもう限界かも。。。"
     };
   } else if (score >= 4 && score <= 6) {
     return {
       name: "木綿豆腐メンタル",
-      image: "/tofu-momen.png",
+      image: "/tofu-momen.png.webp",
       description: "まあまあキツい。"
     };
   } else if (score >= 7 && score <= 9) {
     return {
       name: "焼き豆腐メンタル",
-      image: "/tofu-yaki.png",
+      image: "/tofu-yaki.png.webp",
       description: "わりかし元気〜！"
     };
   } else {
     return {
       name: "鋼のメンタル",
-      image: "/tofu-hagane.png",
+      image: "/tofu-hagane.png.webp",
       description: "自分サイキョー！！！！！"
     };
   }

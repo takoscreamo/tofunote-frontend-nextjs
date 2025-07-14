@@ -77,7 +77,7 @@ export default function LoginPage() {
       <div className="w-full max-w-xs bg-white rounded-xl shadow-md p-8 flex flex-col items-center">
         <div className="mb-4">
           <Image
-            src="/logoicon.png"
+            src="/logoicon.png.webp"
             alt="TOFU NOTE"
             width={120}
             height={120}
@@ -124,9 +124,9 @@ export default function LoginPage() {
         <div className="text-sm text-gray-500 mb-2">サンプル画面（イメージ）</div>
         <ImageCarousel
           images={[
-            { src: '/sample_diary.png', alt: '記録画面サンプル', label: '記録画面' },
-            { src: '/sample_graph.png', alt: 'グラフ画面サンプル', label: 'グラフ画面' },
-            { src: '/sample_settings.png', alt: '設定画面サンプル', label: '設定画面' },
+            { src: '/sample_diary.png.webp', alt: '記録画面サンプル', label: '記録画面' },
+            { src: '/sample_graph.png.webp', alt: 'グラフ画面サンプル', label: 'グラフ画面' },
+            { src: '/sample_settings.png.webp', alt: '設定画面サンプル', label: '設定画面' },
           ]}
           onImageClick={(img) => setModalImage({ src: img.src, alt: img.alt })}
         />
