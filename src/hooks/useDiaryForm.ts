@@ -58,7 +58,7 @@ export const useDiaryForm = ({ initialDate }: UseDiaryFormProps) => {
   // エラーメッセージをカスタマイズ
   const getErrorMessage = () => {
     if (error?.status === 404) {
-      return "日記が登録されていません";
+      return "メンタルと日記が登録されていません";
     }
     return "データ取得エラーが発生しました";
   };
