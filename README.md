@@ -3,6 +3,10 @@
 豆腐メンタルの可視化・記録アプリケーション。日々のメンタルスコアや日記を記録し、グラフで振り返ることができます。
 
 ---
+## 画面サンプル
+<img width="956" height="712" alt="Image" src="https://github.com/user-attachments/assets/a40b8bcd-e2c5-4045-b87f-e97b636151cd" />
+
+---
 
 ## 主な機能
 
