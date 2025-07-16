@@ -18,10 +18,56 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "TOFU NOTE - 豆腐メンタルを俯瞰するアプリ",
-  description: "あなたのメンタルスコアを記録し、豆腐メンタルを可視化・俯瞰するためのアプリケーション",
+  title: {
+    default: "TOFU NOTE - 豆腐メンタルを俯瞰するアプリ",
+    template: "%s | TOFU NOTE"
+  },
+  description: "TOFU NOTE（豆腐ノート・とうふノート・とーふノート・トウフノート・トーフノート）は、あなたのメンタルスコアを記録し、豆腐メンタルを可視化・俯瞰するアプリケーションです。",
+  keywords: [
+    "TOFU NOTE",
+    "tofu note",
+    "TOFUNOTE",
+    "tofunote",
+    "豆腐ノート",
+    "とうふノート",
+    "とーふノート",
+    "トウフノート",
+    "トーフノート",
+    "豆腐メンタル",
+    "メンタルヘルス",
+    "日記",
+    "メンタルスコア",
+    "記録アプリ"
+  ],
   icons: {
     icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "TOFU NOTE - 豆腐メンタルを俯瞰するアプリ",
+    description: "TOFU NOTE（豆腐ノート・とうふノート・とーふノート・トウフノート・トーフノート）は、あなたのメンタルスコアを記録し、豆腐メンタルを可視化・俯瞰するアプリケーションです。",
+    url: "https://tofunote.takoscreamo.com/",
+    siteName: "TOFU NOTE",
+    images: [
+      {
+        url: "/logoicon.png.webp",
+        width: 512,
+        height: 512,
+        alt: "TOFU NOTE ロゴ",
+      },
+    ],
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TOFU NOTE - 豆腐メンタルを俯瞰するアプリ",
+    description: "TOFU NOTE（豆腐ノート・とうふノート・とーふノート・トウフノート・トーフノート）は、あなたのメンタルスコアを記録し、豆腐メンタルを可視化・俯瞰するアプリケーションです。",
+    images: ["/logoicon.png.webp"],
+    site: "@takoscreamo",
+  },
+  metadataBase: new URL("https://tofunote.takoscreamo.com"),
+  alternates: {
+    canonical: "/",
   },
 };
 
