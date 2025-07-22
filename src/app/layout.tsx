@@ -39,9 +39,22 @@ export const metadata: Metadata = {
     "メンタルスコア",
     "記録アプリ"
   ],
-  icons: {
-    icon: "/favicon.ico",
-  },
+  manifest: "/manifest.json",
+  themeColor: "#4F46E5",
+  icons: [
+    {
+      rel: "icon",
+      url: "/logoicon.png.webp",
+      sizes: "192x192",
+      type: "image/png"
+    },
+    {
+      rel: "icon",
+      url: "/logoicon.png.webp",
+      sizes: "512x512",
+      type: "image/png"
+    }
+  ],
   openGraph: {
     title: "TOFU NOTE - 豆腐メンタルを俯瞰するアプリ",
     description: "TOFU NOTE（豆腐ノート・とうふノート・とーふノート・トウフノート・トーフノート）は、あなたのメンタルスコアを記録し、豆腐メンタルを可視化・俯瞰するアプリケーションです。",
