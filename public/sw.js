@@ -1,1 +1,24 @@
-// next-pwaが自動生成します。カスタム処理が必要な場合は編集してください。
+// 手動実装のService Worker
+
+self.addEventListener('install', event => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.open('tofunote-cache').then(cache => {
+      return cache.match(event.request).then(response => {
+        return response || fetch(event.request).then(networkResponse => {
+          if (event.request.method === 'GET' && networkResponse.ok) {
+            cache.put(event.request, networkResponse.clone());
+          }
+          return networkResponse;
+        });
+      });
+    })
+  );
+});
