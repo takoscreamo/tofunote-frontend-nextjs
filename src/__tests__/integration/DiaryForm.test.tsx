@@ -6,6 +6,7 @@ import { DiaryForm } from '@/app/(app)/diary/DiaryForm'
 // Next.jsのImageコンポーネントをモック
 jest.mock('next/image', () => {
   return function MockImage({ src, alt, ...props }: { src: string; alt: string; [key: string]: unknown }) {
+    // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={alt} {...props} />
   }
 })
