@@ -1,39 +1,27 @@
 /**
  * 認証付きAPI用のカスタムaxiosインスタンス
- * - JWT認証ヘッダー自動付与
+ * - HttpOnly Cookie による認証（withCredentials: true）
  * - 401時の自動リフレッシュ＆再試行
- * - jotaiストアと連携したグローバル認証管理
+ * - jotaiストアと連携したグローバル認証状態管理
  */
 import axios from 'axios';
-import { getRefreshToken, setRefreshToken } from '../atoms/auth';
-import { tokenAtom } from '../atoms/auth';
-import { getDefaultStore } from 'jotai';
 import { EP } from '@/utils/endpoints';
-import type { paths } from '@/types/openapi';
 
 // 認証・リフレッシュ対応のカスタムaxiosインスタンスを作成
+// Next.jsのrewritesでプロキシするため、相対パスを使用
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL + "/api" || '',
-  withCredentials: true,
+  baseURL: '/api',
+  withCredentials: true, // Cookie を自動送信
 });
-
-// jotaiのグローバルストアを取得
-const store = getDefaultStore();
 
 // リフレッシュ中かどうかのフラグ
 let isRefreshing = false;
 // リフレッシュ処理のPromise（多重リフレッシュ防止）
-let refreshPromise: Promise<string | null | undefined> | null = null;
+let refreshPromise: Promise<boolean> | null = null;
 
-// リクエストインターセプター：JWTをAuthorizationヘッダーに付与
+// リクエストインターセプター：Cookie認証のため特別な処理は不要
 api.interceptors.request.use(
-  (config) => {
-    const token = store.get(tokenAtom);
-    if (token && config.headers) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
+  (config) => config,
   (error) => Promise.reject(error)
 );
 
@@ -42,35 +30,26 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    // 401かつリトライ前かつrefresh_tokenがある場合のみリフレッシュ
+    // 401かつリトライ前の場合のみリフレッシュ
     if (
       error.response?.status === 401 &&
-      !originalRequest._retry &&
-      getRefreshToken()
+      !originalRequest._retry
     ) {
       // すでにリフレッシュ中でなければリフレッシュ開始
       if (!isRefreshing) {
         isRefreshing = true;
         refreshPromise = (async () => {
           try {
-            // refresh_tokenで新しいJWTを取得
-            const refreshToken = getRefreshToken() ?? null;
-            const res = await axios.post<
-              paths["/refresh-token"]["post"]["responses"][200]["content"]["application/json"]
-            >(
+            // refresh_tokenはCookieで自動送信される
+            await axios.post(
               EP.refresh_token(),
-              { refresh_token: refreshToken },
-              { baseURL: process.env.NEXT_PUBLIC_BACKEND_URL + "/api", withCredentials: true }
+              {},
+              { baseURL: '/api', withCredentials: true }
             );
-            const { token } = res.data;
-            // openapi型ではrefresh_tokenは返らないので、古いrefresh_tokenを再保存
-            store.set(tokenAtom, token ?? null);
-            setRefreshToken(refreshToken ?? '');
-            return token;
+            return true;
           } catch {
-            // リフレッシュ失敗時はtokenのみクリア（refresh_tokenは消さない）
-            store.set(tokenAtom, null);
-            return null;
+            // リフレッシュ失敗
+            return false;
           } finally {
             isRefreshing = false;
             refreshPromise = null;
@@ -78,11 +57,10 @@ api.interceptors.response.use(
         })();
       }
       // リフレッシュ完了まで待機
-      const newToken = await refreshPromise;
-      if (newToken) {
-        // 新しいトークンでリトライ
+      const success = await refreshPromise;
+      if (success) {
+        // 新しいトークンでリトライ（Cookieで自動送信される）
         originalRequest._retry = true;
-        originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
         return api(originalRequest);
       } else {
         // リフレッシュ失敗時はエラー返却
@@ -95,3 +73,19 @@ api.interceptors.response.use(
 );
 
 export const authAxios = api;
+
+// 認証状態を確認するヘルパー関数（リフレッシュを試みずに単純チェック）
+export const checkAuthStatus = async (): Promise<boolean> => {
+  try {
+    // リフレッシュインターセプターをバイパスするため、直接axiosを使用
+    // これにより、ゲストログイン直後など、Cookieがまだ反映されていない場合でも
+    // 不要なリフレッシュ試行を避けられる
+    await axios.get('/me', {
+      baseURL: '/api',
+      withCredentials: true,
+    });
+    return true;
+  } catch {
+    return false;
+  }
+};

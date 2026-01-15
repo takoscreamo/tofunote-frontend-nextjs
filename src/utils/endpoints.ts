@@ -22,4 +22,8 @@ export const EP = {
 
   // トークンリフレッシュ
   refresh_token: () => "refresh-token",
+
+  // Google OAuth
+  google_auth: () => "auth/google",
+  google_link: () => "auth/link/google",
 };

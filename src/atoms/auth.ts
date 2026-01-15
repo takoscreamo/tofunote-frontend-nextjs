@@ -47,7 +47,7 @@ export const loginWithRefreshTokenIfExists = async (
     >(
       EP.refresh_token(),
       { refresh_token: refreshToken },
-      { baseURL: process.env.NEXT_PUBLIC_BACKEND_URL + "/api", withCredentials: true }
+      { baseURL: '/api', withCredentials: true }
     );
     const { token } = res.data;
     if (token) {
